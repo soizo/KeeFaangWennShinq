@@ -104,6 +104,18 @@
             image-rendering: crisp-edges;
         }
 
+        td[data-favicon]::before {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            vertical-align: middle;
+        }
+
         /* Status cells */
         .status-ok {
             color: #006400;
@@ -196,7 +208,6 @@
         <table>
             <thead>
                 <tr>
-                    <th style="width: 24px;"></th>
                     <th>Site</th>
                     <th>Status</th>
                 </tr>
@@ -283,23 +294,16 @@
             for (var i = 0; i < sites.length; i++) {
                 var tr = document.createElement("tr");
 
-                var tdFavicon = document.createElement("td");
-                tdFavicon.className = "favicon-cell";
-                var img = document.createElement("img");
-                img.src = sites[i].url;
-                img.alt = sites[i].name;
-                img.style.imageRendering = "crisp-edges";
-                tdFavicon.appendChild(img);
-
                 var tdName = document.createElement("td");
+                tdName.setAttribute("data-favicon", sites[i].url);
                 tdName.textContent = sites[i].name;
+                tdName.style.backgroundImage = "url('" + sites[i].url + "')";
 
                 var tdStatus = document.createElement("td");
                 tdStatus.textContent = "Checking…";
                 tdStatus.className = "status-checking";
                 tdStatus.id = "status-" + i;
 
-                tr.appendChild(tdFavicon);
                 tr.appendChild(tdName);
                 tr.appendChild(tdStatus);
                 tbody.appendChild(tr);

@@ -213,19 +213,19 @@
     <script>
         // --- Site definitions ---
         var sites = [
-            { name: "Google",    url: "https://www.google.com/favicon.ico" },
-            { name: "Google HK", url: "https://www.google.com.hk/favicon.ico" },
-            { name: "YouTube",   url: "https://www.youtube.com/favicon.ico" },
-            { name: "Twitter/X", url: "https://x.com/favicon.ico" },
-            { name: "Telegram",  url: "https://telegram.org/favicon.ico" },
-            { name: "Instagram", url: "https://www.instagram.com/favicon.ico" },
-            { name: "GitHub",    url: "https://github.com/favicon.ico" },
-            { name: "Gemini",    url: "https://gemini.google.com/favicon.ico" },
-            { name: "TikTok",    url: "https://www.tiktok.com/favicon.ico" },
-            { name: "Pinterest", url: "https://www.pinterest.com/favicon.ico" },
-            { name: "ChatGPT",   url: "https://chatgpt.com/favicon.ico" },
-            { name: "Claude",    url: "https://claude.ai/favicon.ico" },
-            { name: "Gmail",     url: "https://mail.google.com/favicon.ico" }
+            { name: "Google",    url: "https://www.google.com/favicon.ico",    href: "https://www.google.com" },
+            { name: "Google HK", url: "https://www.google.com.hk/favicon.ico", href: "https://www.google.com.hk" },
+            { name: "YouTube",   url: "https://www.youtube.com/favicon.ico",   href: "https://www.youtube.com" },
+            { name: "Twitter",   url: "https://x.com/favicon.ico",             href: "https://x.com" },
+            { name: "Telegram",  url: "https://telegram.org/favicon.ico",      href: "https://telegram.org" },
+            { name: "Instagram", url: "https://www.instagram.com/favicon.ico", href: "https://www.instagram.com" },
+            { name: "GitHub",    url: "https://github.com/favicon.ico",        href: "https://github.com" },
+            { name: "Gemini",    url: "https://gemini.google.com/favicon.ico", href: "https://gemini.google.com" },
+            { name: "TikTok",    url: "https://www.tiktok.com/favicon.ico",    href: "https://www.tiktok.com" },
+            { name: "Pinterest", url: "https://www.pinterest.com/favicon.ico", href: "https://www.pinterest.com" },
+            { name: "ChatGPT",   url: "https://chatgpt.com/favicon.ico",       href: "https://chatgpt.com" },
+            { name: "Claude",    url: "https://claude.ai/favicon.ico",         href: "https://claude.ai" },
+            { name: "Gmail",     url: "https://mail.google.com/favicon.ico",   href: "https://mail.google.com" }
         ];
 
         // --- Cache-busting probe ---
@@ -279,12 +279,17 @@
                 var tr = document.createElement("tr");
                 var tdName = document.createElement("td");
                 var tdStatus = document.createElement("td");
-                tdName.textContent = sites[i].name;
                 var faviconImg = document.createElement("img");
                 faviconImg.src = sites[i].url;
                 faviconImg.alt = "";
                 faviconImg.className = "site-favicon";
-                tdName.insertBefore(faviconImg, tdName.firstChild);
+                var link = document.createElement("a");
+                link.href = sites[i].href;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = sites[i].name;
+                tdName.appendChild(faviconImg);
+                tdName.appendChild(link);
                 tdStatus.textContent = "Checking…";
                 tdStatus.className = "status-checking";
                 tdStatus.id = "status-" + i;

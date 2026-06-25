@@ -92,6 +92,18 @@
             color: #fff;
         }
 
+        .favicon-cell {
+            width: 24px;
+            padding: 4px 4px;
+        }
+
+        .favicon-cell img {
+            width: 16px;
+            height: 16px;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+
         /* Status cells */
         .status-ok {
             color: #006400;
@@ -166,7 +178,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>&#127760; Can You Access the Open Internet?</h1>
+        <h1>&#9216; Can You Access the Open Internet?</h1>
         <a href="#" class="subtitle" onclick="location.reload(); return false;">
             Click to check your internet access
         </a>
@@ -184,6 +196,7 @@
         <table>
             <thead>
                 <tr>
+                    <th style="width: 24px;"></th>
                     <th>Site</th>
                     <th>Status</th>
                 </tr>
@@ -269,12 +282,24 @@
             tbody.innerHTML = "";
             for (var i = 0; i < sites.length; i++) {
                 var tr = document.createElement("tr");
+
+                var tdFavicon = document.createElement("td");
+                tdFavicon.className = "favicon-cell";
+                var img = document.createElement("img");
+                img.src = sites[i].url;
+                img.alt = sites[i].name;
+                img.style.imageRendering = "crisp-edges";
+                tdFavicon.appendChild(img);
+
                 var tdName = document.createElement("td");
-                var tdStatus = document.createElement("td");
                 tdName.textContent = sites[i].name;
+
+                var tdStatus = document.createElement("td");
                 tdStatus.textContent = "Checking…";
                 tdStatus.className = "status-checking";
                 tdStatus.id = "status-" + i;
+
+                tr.appendChild(tdFavicon);
                 tr.appendChild(tdName);
                 tr.appendChild(tdStatus);
                 tbody.appendChild(tr);

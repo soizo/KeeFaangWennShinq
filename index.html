@@ -188,13 +188,14 @@
 			font-size: 10px;
 			color: #c0c0c0;
 		}
-
 	</style>
 </head>
 
 <body>
 	<div class="container">
-		<h1><img src="icon.png" alt="" style="width:1em;height:1em;vertical-align:middle;margin-right:10px;image-rendering:auto;">Kee Faang Wenn Shinq?</h1>
+		<h1><img src="icon.png" alt=""
+				style="width:1em;height:1em;vertical-align:middle;margin-right:10px;image-rendering:auto;">Kee Faang
+			Wenn Shinq?</h1>
 		<a href="#" class="subtitle" onclick="location.reload(); return false;">
 			Click to check your internet access
 		</a>
@@ -218,11 +219,11 @@
 		</table>
 
 		<footer>
-			<p>No data collected. Runs entirely in your browser.</p>
+			<p>Information may not be exhaustive. Please test and verify for yourself.</p>
 		</footer>
 
 		<div class="counter">
-			&#9733; You are visitor No. <span id="visitor-num"></span> today &#9733;
+			You are visitor No. <span id="visitor-num"></span> today ^^
 		</div>
 	</div>
 
@@ -245,8 +246,8 @@
 
 			{ name: "Claude", url: "https://claude.ai/favicon.ico", href: "https://claude.ai" },
 			{ name: "Gemini", url: "https://gemini.google.com/favicon.ico", href: "https://gemini.google.com" },
-			
-			
+
+
 			{ name: "Discord", url: "https://discord.com/favicon.ico", href: "https://discord.com" },
 			{ name: "Reddit", url: "https://www.reddit.com/favicon.ico", href: "https://www.reddit.com" },
 			{ name: "Instagram", url: "https://www.instagram.com/favicon.ico", href: "https://www.instagram.com" },
@@ -317,13 +318,13 @@
 				faviconImg.alt = "";
 				faviconImg.className = "site-favicon";
 				faviconImg.src = "broken.png";
-				(function(el, url) {
+				(function (el, url) {
 					var bust = "_nc=" + Date.now() + "-" + Math.random().toString(36).slice(2);
 					var sep = url.indexOf("?") === -1 ? "?" : "&";
 					var bustedUrl = url + sep + bust;
 					var loader = new Image();
-					loader.onload = function() { el.src = bustedUrl; };
-					loader.onerror = function() { /* keep broken.png */ };
+					loader.onload = function () { el.src = bustedUrl; };
+					loader.onerror = function () { /* keep broken.png */ };
 					loader.src = bustedUrl;
 				})(faviconImg, sites[i].url);
 				var link = document.createElement("a");

@@ -8,6 +8,7 @@
 	<meta http-equiv="Pragma" content="no-cache">
 	<meta http-equiv="Expires" content="0">
 	<title>Can You Access the Open Internet?</title>
+	<link rel="icon" type="image/png" href="icon.png">
 	<style>
 		/* === RESET & BASE === */
 		* {
@@ -193,7 +194,7 @@
 
 <body>
 	<div class="container">
-		<h1>[&gt;_] Can You Access the Open Internet?</h1>
+		<h1><img src="icon.png" alt="" style="width:1em;height:1em;vertical-align:middle;margin-right:0.3em;image-rendering:auto;">Can You Access the Open Internet?</h1>
 		<a href="#" class="subtitle" onclick="location.reload(); return false;">
 			Click to check your internet access
 		</a>
@@ -315,7 +316,7 @@
 				var tdName = document.createElement("td");
 				var tdStatus = document.createElement("td");
 				var faviconImg = document.createElement("img");
-				faviconImg.src = sites[i].url;
+				faviconImg.src = "icon.png";
 				faviconImg.alt = "";
 				faviconImg.className = "site-favicon";
 				var link = document.createElement("a");

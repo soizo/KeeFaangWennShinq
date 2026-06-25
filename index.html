@@ -21,13 +21,14 @@
 			margin: 0;
 			padding: 0;
 			box-sizing: border-box;
+			-webkit-font-smoothing: antialiased;
 		}
 
 		body {
 			font-family: "Times New Roman", "Times", serif;
 			background-color: #f0f0f0;
 			color: #333;
-			line-height: 1.5;
+			line-height: 1;
 			padding: 12px;
 		}
 
@@ -40,39 +41,45 @@
 			padding: 8px;
 		}
 
+		a {
+			color: #0000ff;
+			text-decoration: underline;
+		}
+
+		a:visited {
+			color: #800080;
+		}
+
 		/* === HEADER === */
 		h1 {
 			text-align: center;
 			border-bottom: 3px double #000;
+			font-size: 25px;
 		}
 
 		.subtitle {
 			color: #000;
+			font-size: 12px;
 		}
 
 		/* === CONTROLS === */
-		.controls {
-			margin-bottom: 8px;
-			padding: 4px;
-			border: 1px dashed #000;
-			background: #fafafa;
-			
-		}
 
-		.controls button {
+		button {
 			font-family: inherit;
-			padding: 4px 12px;
+			padding: 2px 6px;
 			cursor: pointer;
 			background: #c0c0c0;
 			border: 2px outset #c0c0c0;
 			color: #000;
+			margin-top: 4px;
+			margin-bottom: 4px;
 		}
 
-		.controls button:active {
+		button:active {
 			border-style: inset;
 		}
 
-		.controls button.active {
+		button.active {
 			background: #00ff;
 			color: #fff;
 			border-color: #000080;
@@ -171,6 +178,7 @@
 			font-size: 10px;
 			color: #c0c0c0;
 		}
+
 	</style>
 </head>
 
@@ -180,13 +188,10 @@
 		<a href="#" class="subtitle" onclick="location.reload(); return false;">
 			Click to check your internet access
 		</a>
-
-		<div class="controls">
-			<strong>Timeout:</strong>
-			<button id="btn-3s" class="active" onclick="runCheck(3000)">3 seconds</button>
-			<button id="btn-5s" onclick="runCheck(5000)">5 seconds</button>
-			<br>
-		</div>
+		<br>
+		<strong>Timeout:</strong>
+		<button id="btn-3s" class="active" onclick="runCheck(3000)">3 seconds</button>
+		<button id="btn-5s" onclick="runCheck(5000)">5 seconds</button>
 
 		<div id="verdict" class="verdict verdict-checking">Checking&hellip;</div>
 
@@ -302,10 +307,13 @@
 				faviconImg.className = "site-favicon";
 				faviconImg.src = "broken.png";
 				(function(el, url) {
+					var bust = "_nc=" + Date.now() + "-" + Math.random().toString(36).slice(2);
+					var sep = url.indexOf("?") === -1 ? "?" : "&";
+					var bustedUrl = url + sep + bust;
 					var loader = new Image();
-					loader.onload = function() { el.src = url; };
+					loader.onload = function() { el.src = bustedUrl; };
 					loader.onerror = function() { /* keep broken.png */ };
-					loader.src = url;
+					loader.src = bustedUrl;
 				})(faviconImg, sites[i].url);
 				var link = document.createElement("a");
 				link.href = sites[i].href;
@@ -345,12 +353,12 @@
 						var cell = document.getElementById("status-" + index);
 						var row = document.getElementById("site-row-" + index);
 						if (result === "ok") {
-							cell.textContent = "✓ Accessible";
+							cell.textContent = "Accessible";
 							cell.className = "status-ok";
 							row.className = "";
 							okCount++;
 						} else {
-							cell.textContent = "✗ Unreachable";
+							cell.textContent = "Unreachable";
 							cell.className = "status-blocked";
 							row.className = "site-unreachable";
 						}
@@ -368,10 +376,10 @@
 		function updateVerdict(ok, total) {
 			var el = document.getElementById("verdict");
 			if (ok === total) {
-				el.textContent = "✓ You appear to have unrestricted internet access.";
+				el.textContent = "You appear to have unrestricted internet access.";
 				el.className = "verdict verdict-free";
 			} else if (ok === 0) {
-				el.textContent = "✗ Your network appears to be heavily restricted.";
+				el.textContent = "Your network appears to be heavily restricted.";
 				el.className = "verdict verdict-blocked";
 			} else {
 				el.textContent = "⚠ Partial access: " + ok + " of " + total + " sites reachable.";

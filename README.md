@@ -1,8 +1,8 @@
-# KeeFaangWennShinq
+# Kee Faang Wenn Shinq?
 
 A static, single-page tool that checks whether your network can reach popular international websites (Google, YouTube, Twitter, Telegram, Instagram, GitHub, etc.).
 
-Built with a Web 1.0 aesthetic. Runs entirely in-browser — no server, no data collection.
+Runs entirely in-browser — no server, no data collection.
 
 ## How It Works
 

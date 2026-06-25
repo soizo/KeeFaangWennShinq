@@ -65,6 +65,7 @@
 			cursor: pointer;
 			background: #c0c0c0;
 			border: 2px outset #c0c0c0;
+			color: #000;
 		}
 
 		.controls button:active {
@@ -119,6 +120,11 @@
 		}
 
 		.status-checking {
+			color: #c0c0c0;
+			font-style: italic;
+		}
+
+		.site-unreachable a {
 			color: #c0c0c0;
 			font-style: italic;
 		}
@@ -288,6 +294,7 @@
 			tbody.innerHTML = "";
 			for (var i = 0; i < sites.length; i++) {
 				var tr = document.createElement("tr");
+				tr.id = "site-row-" + i;
 				var tdName = document.createElement("td");
 				var tdStatus = document.createElement("td");
 				var faviconImg = document.createElement("img");
@@ -336,13 +343,16 @@
 				(function (index) {
 					probe(sites[index].url, timeout).then(function (result) {
 						var cell = document.getElementById("status-" + index);
+						var row = document.getElementById("site-row-" + index);
 						if (result === "ok") {
 							cell.textContent = "✓ Accessible";
 							cell.className = "status-ok";
+							row.className = "";
 							okCount++;
 						} else {
 							cell.textContent = "✗ Unreachable";
 							cell.className = "status-blocked";
+							row.className = "site-unreachable";
 						}
 
 						doneCount++;

@@ -148,10 +148,6 @@
             margin-top: 8px;
         }
 
-        footer a {
-            color: #0000cc;
-        }
-
         /* === VISITOR COUNTER (WEB 1.0 AESTHETIC) === */
         .counter {
             text-align: center;
@@ -171,10 +167,9 @@
 <body>
     <div class="container">
         <h1>&#127760; Can You Access the Open Internet?</h1>
-        <p class="subtitle">
-            This page checks whether your network can reach popular international websites.<br>
-            No data is collected. Everything runs in your browser.
-        </p>
+        <a href="#" class="subtitle" onclick="location.reload(); return false;">
+            Click to check your internet access
+        </a>
 
         <div class="controls">
             <strong>Timeout:</strong>
@@ -199,8 +194,7 @@
         </table>
 
         <footer>
-            <p>This page uses favicon image probes &mdash; no server needed.</p>
-            <p>Results may vary by network, VPN, and browser settings.</p>
+            <p>No data collected. Runs entirely in your browser.</p>
         </footer>
 
         <div class="counter">

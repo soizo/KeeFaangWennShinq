@@ -92,31 +92,15 @@
             color: #fff;
         }
 
-        .favicon-cell {
-            width: 24px;
-            padding: 4px 4px;
-        }
-
-        .favicon-cell img {
-            width: 16px;
-            height: 16px;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-        }
-
-        td[data-favicon]::before {
-            content: '';
-            display: inline;
-            width: 16px;
-            height: 16px;
-            margin-right: 6px;
-            vertical-align: text-bottom;
-            background-image: var(--favicon-url);
-            background-size: 16px 16px;
-            background-repeat: no-repeat;
-        }
-
         /* Status cells */
+        .site-favicon {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 6px;
+            image-rendering: auto;
+        }
+
         .status-ok {
             color: #006400;
             font-weight: bold;
@@ -190,7 +174,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>&#9216; Can You Access the Open Internet?</h1>
+        <h1>[&gt;_] Can You Access the Open Internet?</h1>
         <a href="#" class="subtitle" onclick="location.reload(); return false;">
             Click to check your internet access
         </a>
@@ -293,16 +277,17 @@
             tbody.innerHTML = "";
             for (var i = 0; i < sites.length; i++) {
                 var tr = document.createElement("tr");
-
                 var tdName = document.createElement("td");
-                tdName.textContent = sites[i].name;
-                tdName.style.setProperty("--favicon-url", "url('" + sites[i].url + "')");
-
                 var tdStatus = document.createElement("td");
+                tdName.textContent = sites[i].name;
+                var faviconImg = document.createElement("img");
+                faviconImg.src = sites[i].url;
+                faviconImg.alt = "";
+                faviconImg.className = "site-favicon";
+                tdName.insertBefore(faviconImg, tdName.firstChild);
                 tdStatus.textContent = "Checking…";
                 tdStatus.className = "status-checking";
                 tdStatus.id = "status-" + i;
-
                 tr.appendChild(tdName);
                 tr.appendChild(tdStatus);
                 tbody.appendChild(tr);

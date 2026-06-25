@@ -106,14 +106,14 @@
 
         td[data-favicon]::before {
             content: '';
-            display: inline-block;
+            display: inline;
             width: 16px;
             height: 16px;
             margin-right: 6px;
-            background-size: contain;
+            vertical-align: text-bottom;
+            background-image: var(--favicon-url);
+            background-size: 16px 16px;
             background-repeat: no-repeat;
-            background-position: center;
-            vertical-align: middle;
         }
 
         /* Status cells */
@@ -295,9 +295,8 @@
                 var tr = document.createElement("tr");
 
                 var tdName = document.createElement("td");
-                tdName.setAttribute("data-favicon", sites[i].url);
                 tdName.textContent = sites[i].name;
-                tdName.style.backgroundImage = "url('" + sites[i].url + "')";
+                tdName.style.setProperty("--favicon-url", "url('" + sites[i].url + "')");
 
                 var tdStatus = document.createElement("td");
                 tdStatus.textContent = "Checking…";

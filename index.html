@@ -109,11 +109,11 @@
 
 		/* Status cells */
 		.site-favicon {
-			width: 16px;
+			width: 14px;
 			height: 16px;
 			vertical-align: middle;
 			margin-right: 6px;
-			image-rendering: auto;
+			image-rendering: pixelated;
 		}
 
 		.status-ok {
@@ -322,9 +322,15 @@
 				var tdName = document.createElement("td");
 				var tdStatus = document.createElement("td");
 				var faviconImg = document.createElement("img");
-				faviconImg.src = sites[i].url;
 				faviconImg.alt = "";
 				faviconImg.className = "site-favicon";
+				faviconImg.src = "broken.png";
+				(function(el, url) {
+					var loader = new Image();
+					loader.onload = function() { el.src = url; };
+					loader.onerror = function() { /* keep broken.png */ };
+					loader.src = url;
+				})(faviconImg, sites[i].url);
 				var link = document.createElement("a");
 				link.href = sites[i].href;
 				link.target = "_blank";

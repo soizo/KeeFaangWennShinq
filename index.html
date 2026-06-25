@@ -262,6 +262,30 @@
 			{ name: "Netflix", url: "https://www.netflix.com/favicon.ico", href: "https://www.netflix.com" },
 		];
 
+		// --- URL helpers ---
+		function cacheBustedUrl(url) {
+			var bustParam = "_nc=" + Date.now() + "-" + Math.random().toString(36).slice(2);
+			var separator = url.indexOf("?") === -1 ? "?" : "&";
+			return url + separator + bustParam + "#" + Math.random().toString(36).slice(2);
+		}
+
+		function getProbeUrls(site) {
+			var urls = site.urls ? site.urls.slice() : [];
+			urls.unshift(site.url);
+
+			try {
+				urls.push(new URL("/favicon.ico", site.href).href);
+				urls.push(new URL("/apple-touch-icon.png", site.href).href);
+				urls.push(new URL("/apple-touch-icon-precomposed.png", site.href).href);
+			} catch (e) {
+				/* keep existing URLs only */
+			}
+
+			return urls.filter(function(url, index) {
+				return urls.indexOf(url) === index;
+			});
+		}
+
 		// --- Cache-busting probe ---
 		function probe(faviconUrl, timeout) {
 			return new Promise(function (resolve) {
@@ -294,14 +318,28 @@
 					}
 				};
 
-				// Cache-busting: unique param per probe per run
-				// Using multiple strategies to defeat all browser/device caches:
-				// 1. Random query param
-				// 2. Timestamp
-				// 3. Fragment identifier (some browsers key on full URL including fragment)
-				var bustParam = "_nc=" + Date.now() + "-" + Math.random().toString(36).slice(2);
-				var separator = faviconUrl.indexOf("?") === -1 ? "?" : "&";
-				img.src = faviconUrl + separator + bustParam + "#" + Math.random().toString(36).slice(2);
+				img.src = cacheBustedUrl(faviconUrl);
+			});
+		}
+
+		function probeAny(site, timeout) {
+			var urls = getProbeUrls(site);
+			var remaining = urls.length;
+
+			return new Promise(function(resolve) {
+				for (var i = 0; i < urls.length; i++) {
+					probe(urls[i], timeout).then(function(result) {
+						if (result === "ok") {
+							resolve("ok");
+							return;
+						}
+
+						remaining--;
+						if (remaining === 0) {
+							resolve("blocked");
+						}
+					});
+				}
 			});
 		}
 
@@ -318,15 +356,22 @@
 				faviconImg.alt = "";
 				faviconImg.className = "site-favicon";
 				faviconImg.src = "broken.png";
-				(function (el, url) {
-					var bust = "_nc=" + Date.now() + "-" + Math.random().toString(36).slice(2);
-					var sep = url.indexOf("?") === -1 ? "?" : "&";
-					var bustedUrl = url + sep + bust;
-					var loader = new Image();
-					loader.onload = function () { el.src = bustedUrl; };
-					loader.onerror = function () { /* keep broken.png */ };
-					loader.src = bustedUrl;
-				})(faviconImg, sites[i].url);
+				(function (el, urls) {
+					var tryIndex = 0;
+					function tryNext() {
+						if (tryIndex >= urls.length) {
+							return;
+						}
+
+						var bustedUrl = cacheBustedUrl(urls[tryIndex++]);
+						var loader = new Image();
+						loader.onload = function () { el.src = bustedUrl; };
+						loader.onerror = tryNext;
+						loader.src = bustedUrl;
+					}
+
+					tryNext();
+				})(faviconImg, getProbeUrls(sites[i]));
 				var link = document.createElement("a");
 				link.href = sites[i].href;
 				link.target = "_blank";
@@ -361,7 +406,7 @@
 
 			for (var i = 0; i < total; i++) {
 				(function (index) {
-					probe(sites[index].url, timeout).then(function (result) {
+					probeAny(sites[index], timeout).then(function (result) {
 						var cell = document.getElementById("status-" + index);
 						var row = document.getElementById("site-row-" + index);
 						if (result === "ok") {

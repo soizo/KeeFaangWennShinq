@@ -36,43 +36,35 @@
 			max-width: 640px;
 			margin: 0 auto;
 			background: #fff;
-			border: 2px solid #000;
-			padding: 16px;
+			border: 1px solid #000;
+			padding: 8px;
 		}
 
 		/* === HEADER === */
 		h1 {
-			font-size: 1.3em;
 			text-align: center;
 			border-bottom: 3px double #000;
-			padding-bottom: 8px;
-			margin-bottom: 12px;
 		}
 
 		.subtitle {
-			text-align: center;
-			font-size: 0.85em;
-			color: #555;
-			margin-bottom: 16px;
+			color: #000;
 		}
 
 		/* === CONTROLS === */
 		.controls {
-			text-align: center;
-			margin-bottom: 16px;
-			padding: 8px;
-			border: 1px dashed #999;
+			margin-bottom: 8px;
+			padding: 4px;
+			border: 1px dashed #000;
 			background: #fafafa;
+			
 		}
 
 		.controls button {
 			font-family: inherit;
-			font-size: 0.9em;
 			padding: 4px 12px;
-			margin: 4px;
 			cursor: pointer;
-			background: #ddd;
-			border: 2px outset #ccc;
+			background: #c0c0c0;
+			border: 2px outset #c0c0c0;
 		}
 
 		.controls button:active {
@@ -80,9 +72,9 @@
 		}
 
 		.controls button.active {
-			background: #333;
+			background: #00ff;
 			color: #fff;
-			border-color: #000;
+			border-color: #000080;
 		}
 
 		/* === TABLE === */
@@ -96,14 +88,14 @@
 		th,
 		td {
 			border: 1px solid #000;
-			padding: 6px 8px;
+			padding: 2px 4px;
 			text-align: left;
-			font-size: 0.85em;
+			font-size: 15px;
 			width: 50%;
 		}
 
 		th {
-			background: #333;
+			background: #000;
 			color: #fff;
 		}
 
@@ -117,90 +109,68 @@
 		}
 
 		.status-ok {
-			color: #006400;
+			color: #008000;
 			font-weight: bold;
 		}
 
 		.status-blocked {
-			color: #8b0000;
+			color: #800000;
 			font-weight: bold;
 		}
 
 		.status-checking {
-			color: #666;
+			color: #c0c0c0;
 			font-style: italic;
 		}
 
 		/* === VERDICT === */
 		.verdict {
 			text-align: center;
-			padding: 10px;
-			margin-bottom: 12px;
-			border: 2px solid #000;
+			padding: 0px;
+			margin-bottom: 8px;
+			border: 1px solid #000;
 			font-weight: bold;
-			font-size: 1.1em;
 		}
 
 		.verdict-free {
-			background: #c8ffc8;
-			color: #006400;
+			background: #00ff00;
+			color: #000;
 		}
 
 		.verdict-partial {
-			background: #ffffc8;
-			color: #665500;
+			background: #ffff80;
+			color: #000;
 		}
 
 		.verdict-blocked {
-			background: #ffc8c8;
-			color: #8b0000;
+			background: #ff8080;
+			color: #000;
 		}
 
 		.verdict-checking {
-			background: #e8e8e8;
-			color: #555;
+			background: #c0c0c0;
+			color: #000;
 		}
 
 		/* === FOOTER === */
 		footer {
-			text-align: center;
-			font-size: 0.75em;
-			color: #777;
-			border-top: 1px solid #ccc;
+			font-size: 10px;
+			color: #c0c0c0;
+			border-top: 1px solid #c0c0c0;
 			padding-top: 8px;
-			margin-top: 8px;
 		}
 
 		/* === VISITOR COUNTER (WEB 1.0 AESTHETIC) === */
 		.counter {
-			text-align: center;
-			margin-top: 8px;
-			font-size: 0.75em;
-			color: #999;
-		}
-
-		/* === RESPONSIVE === */
-		@media (max-width: 400px) {
-			.container {
-				padding: 10px;
-			}
-
-			h1 {
-				font-size: 1.1em;
-			}
-
-			th,
-			td {
-				padding: 4px 5px;
-				font-size: 0.8em;
-			}
+			font-size: 10px;
+			color: #c0c0c0;
 		}
 	</style>
 </head>
 
 <body>
 	<div class="container">
-		<h1><img src="icon.png" alt="" style="width:1em;height:1em;vertical-align:middle;margin-right:0.3em;image-rendering:auto;">Kee Faang Wenn Shinq?</h1>
+		<h1><img src="icon.png" alt="" style="width:1em;height:1em;vertical-align:middle;margin-right:10px;image-rendering:auto;">Kee Faang Wenn Shinq?</h1>
 		<a href="#" class="subtitle" onclick="location.reload(); return false;">
 			Click to check your internet access
 		</a>
@@ -210,7 +180,6 @@
 			<button id="btn-3s" class="active" onclick="runCheck(3000)">3 seconds</button>
 			<button id="btn-5s" onclick="runCheck(5000)">5 seconds</button>
 			<br>
-			<small>(Use 5s if you have a slow connection)</small>
 		</div>
 
 		<div id="verdict" class="verdict verdict-checking">Checking&hellip;</div>

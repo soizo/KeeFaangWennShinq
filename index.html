@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Can You Access the Open Internet?</title>
+    <style>
+        /* === RESET & BASE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Courier New", Courier, monospace;
+            background-color: #f0f0f0;
+            color: #333;
+            line-height: 1.5;
+            padding: 12px;
+        }
+
+        /* === WEB 1.0 CONTAINER === */
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            background: #fff;
+            border: 2px solid #000;
+            padding: 16px;
+        }
+
+        /* === HEADER === */
+        h1 {
+            font-size: 1.3em;
+            text-align: center;
+            border-bottom: 3px double #000;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.85em;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        /* === CONTROLS === */
+        .controls {
+            text-align: center;
+            margin-bottom: 16px;
+            padding: 8px;
+            border: 1px dashed #999;
+            background: #fafafa;
+        }
+
+        .controls button {
+            font-family: inherit;
+            font-size: 0.9em;
+            padding: 4px 12px;
+            margin: 4px;
+            cursor: pointer;
+            background: #ddd;
+            border: 2px outset #ccc;
+        }
+
+        .controls button:active {
+            border-style: inset;
+        }
+
+        .controls button.active {
+            background: #333;
+            color: #fff;
+            border-color: #000;
+        }
+
+        /* === TABLE === */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 6px 8px;
+            text-align: left;
+            font-size: 0.85em;
+        }
+
+        th {
+            background: #333;
+            color: #fff;
+        }
+
+        /* Status cells */
+        .status-ok {
+            color: #006400;
+            font-weight: bold;
+        }
+
+        .status-blocked {
+            color: #8b0000;
+            font-weight: bold;
+        }
+
+        .status-checking {
+            color: #666;
+            font-style: italic;
+        }
+
+        /* === VERDICT === */
+        .verdict {
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 2px solid #000;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .verdict-free {
+            background: #c8ffc8;
+            color: #006400;
+        }
+
+        .verdict-partial {
+            background: #ffffc8;
+            color: #665500;
+        }
+
+        .verdict-blocked {
+            background: #ffc8c8;
+            color: #8b0000;
+        }
+
+        .verdict-checking {
+            background: #e8e8e8;
+            color: #555;
+        }
+
+        /* === FOOTER === */
+        footer {
+            text-align: center;
+            font-size: 0.75em;
+            color: #777;
+            border-top: 1px solid #ccc;
+            padding-top: 8px;
+            margin-top: 8px;
+        }
+
+        footer a {
+            color: #0000cc;
+        }
+
+        /* === VISITOR COUNTER (WEB 1.0 AESTHETIC) === */
+        .counter {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 0.75em;
+            color: #999;
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 400px) {
+            .container { padding: 10px; }
+            h1 { font-size: 1.1em; }
+            th, td { padding: 4px 5px; font-size: 0.8em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>&#127760; Can You Access the Open Internet?</h1>
+        <p class="subtitle">
+            This page checks whether your network can reach popular international websites.<br>
+            No data is collected. Everything runs in your browser.
+        </p>
+
+        <div class="controls">
+            <strong>Timeout:</strong>
+            <button id="btn-3s" class="active" onclick="runCheck(3000)">3 seconds</button>
+            <button id="btn-5s" onclick="runCheck(5000)">5 seconds</button>
+            <br>
+            <small>(Use 5s if you have a slow connection)</small>
+        </div>
+
+        <div id="verdict" class="verdict verdict-checking">Checking&hellip;</div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Site</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="results">
+                <!-- filled by JS -->
+            </tbody>
+        </table>
+
+        <footer>
+            <p>This page uses favicon image probes &mdash; no server needed.</p>
+            <p>Results may vary by network, VPN, and browser settings.</p>
+        </footer>
+
+        <div class="counter">
+            &#9733; You are visitor No. <span id="visitor-num"></span> today &#9733;
+        </div>
+    </div>
+
+    <script>
+        // --- Site definitions ---
+        var sites = [
+            { name: "Google",    url: "https://www.google.com/favicon.ico" },
+            { name: "Google HK", url: "https://www.google.com.hk/favicon.ico" },
+            { name: "YouTube",   url: "https://www.youtube.com/favicon.ico" },
+            { name: "Twitter/X", url: "https://x.com/favicon.ico" },
+            { name: "Telegram",  url: "https://telegram.org/favicon.ico" },
+            { name: "Instagram", url: "https://www.instagram.com/favicon.ico" },
+            { name: "GitHub",    url: "https://github.com/favicon.ico" },
+            { name: "Gemini",    url: "https://gemini.google.com/favicon.ico" },
+            { name: "TikTok",    url: "https://www.tiktok.com/favicon.ico" },
+            { name: "Pinterest", url: "https://www.pinterest.com/favicon.ico" },
+            { name: "ChatGPT",   url: "https://chatgpt.com/favicon.ico" },
+            { name: "Claude",    url: "https://claude.ai/favicon.ico" },
+            { name: "Gmail",     url: "https://mail.google.com/favicon.ico" }
+        ];
+
+        // --- Cache-busting probe ---
+        function probe(faviconUrl, timeout) {
+            return new Promise(function(resolve) {
+                var img = new Image();
+                var done = false;
+
+                var timer = setTimeout(function() {
+                    if (!done) {
+                        done = true;
+                        img.onload = null;
+                        img.onerror = null;
+                        img.src = "";
+                        resolve("blocked");
+                    }
+                }, timeout);
+
+                img.onload = function() {
+                    if (!done) {
+                        done = true;
+                        clearTimeout(timer);
+                        resolve("ok");
+                    }
+                };
+
+                img.onerror = function() {
+                    if (!done) {
+                        done = true;
+                        clearTimeout(timer);
+                        resolve("blocked");
+                    }
+                };
+
+                // Cache-busting: unique param per probe per run
+                // Using multiple strategies to defeat all browser/device caches:
+                // 1. Random query param
+                // 2. Timestamp
+                // 3. Fragment identifier (some browsers key on full URL including fragment)
+                var bustParam = "_nc=" + Date.now() + "-" + Math.random().toString(36).slice(2);
+                var separator = faviconUrl.indexOf("?") === -1 ? "?" : "&";
+                img.src = faviconUrl + separator + bustParam + "#" + Math.random().toString(36).slice(2);
+            });
+        }
+
+        // --- Render table ---
+        function renderTable() {
+            var tbody = document.getElementById("results");
+            tbody.innerHTML = "";
+            for (var i = 0; i < sites.length; i++) {
+                var tr = document.createElement("tr");
+                var tdName = document.createElement("td");
+                var tdStatus = document.createElement("td");
+                tdName.textContent = sites[i].name;
+                tdStatus.textContent = "Checking…";
+                tdStatus.className = "status-checking";
+                tdStatus.id = "status-" + i;
+                tr.appendChild(tdName);
+                tr.appendChild(tdStatus);
+                tbody.appendChild(tr);
+            }
+        }
+
+        // --- Run all probes ---
+        function runCheck(timeout) {
+            // Update button state
+            document.getElementById("btn-3s").className = (timeout === 3000) ? "active" : "";
+            document.getElementById("btn-5s").className = (timeout === 5000) ? "active" : "";
+
+            // Reset
+            renderTable();
+            var verdictEl = document.getElementById("verdict");
+            verdictEl.textContent = "Checking…";
+            verdictEl.className = "verdict verdict-checking";
+
+            var okCount = 0;
+            var doneCount = 0;
+            var total = sites.length;
+
+            for (var i = 0; i < total; i++) {
+                (function(index) {
+                    probe(sites[index].url, timeout).then(function(result) {
+                        var cell = document.getElementById("status-" + index);
+                        if (result === "ok") {
+                            cell.textContent = "✓ Accessible";
+                            cell.className = "status-ok";
+                            okCount++;
+                        } else {
+                            cell.textContent = "✗ Blocked / Unreachable";
+                            cell.className = "status-blocked";
+                        }
+
+                        doneCount++;
+                        if (doneCount === total) {
+                            updateVerdict(okCount, total);
+                        }
+                    });
+                })(i);
+            }
+        }
+
+        // --- Verdict ---
+        function updateVerdict(ok, total) {
+            var el = document.getElementById("verdict");
+            if (ok === total) {
+                el.textContent = "✓ You appear to have unrestricted internet access.";
+                el.className = "verdict verdict-free";
+            } else if (ok === 0) {
+                el.textContent = "✗ Your network appears to be heavily restricted.";
+                el.className = "verdict verdict-blocked";
+            } else {
+                el.textContent = "⚠ Partial access: " + ok + " of " + total + " sites reachable.";
+                el.className = "verdict verdict-partial";
+            }
+        }
+
+        // --- Fake visitor counter (web 1.0 charm) ---
+        document.getElementById("visitor-num").textContent = Math.floor(Math.random() * 9000) + 1000;
+
+        // --- Auto-run with 3s timeout on load ---
+        renderTable();
+        runCheck(3000);
+    </script>
+</body>
+</html>

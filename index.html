@@ -1144,8 +1144,10 @@
 					language = translations[this.value] ? this.value : "en";
 					try {
 						localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-					} catch {}
-					applyLanguage();
+						location.reload();
+					} catch {
+						applyLanguage();
+					}
 				});
 
 			var CHECK_TIMEOUT = 5000;

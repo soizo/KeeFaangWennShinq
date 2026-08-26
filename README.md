@@ -6,11 +6,13 @@ Runs entirely in-browser — no server, no data collection.
 
 ## How It Works
 
-Uses favicon image probes with cache-busting to detect connectivity. Choose between a 3-second or 5-second timeout depending on your network speed.
+Runs two browser-native checks per site in parallel: a `no-cors` request to the site's main page and a request for one known static asset. Either success marks the site accessible; failures are compared with the current-page baseline and other site results to distinguish **Unreachable** from **Unable to confirm**.
+
+Choose a 3-second or 5-second deadline depending on your network speed. Browser security rules prevent inspecting cross-origin response content, so results indicate network reachability rather than guaranteeing that every page feature works.
 
 ## Deployment
 
-Host `index.html` anywhere static — GitHub Pages, Netlify, a simple HTTP server, or just open it locally in a browser.
+Host the repository files anywhere static — GitHub Pages, Netlify, a simple HTTP server, or open `index.html` locally in a browser. Keep `connectivity.js` beside `index.html`.
 
 ## Licence
 

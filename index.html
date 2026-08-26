@@ -1,456 +1,508 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-GB">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			http-equiv="Cache-Control"
+			content="no-cache, no-store, must-revalidate"
+		/>
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<title>Kee Faang Wenn Shinq?</title>
+		<link rel="icon" type="image/png" href="icon.png" />
+		<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<meta name="apple-mobile-web-app-title" content="KeeFaang" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<link rel="manifest" href="manifest.json" />
+		<style>
+			/* === RESET & BASE === */
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				-webkit-font-smoothing: antialiased;
+			}
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-	<meta http-equiv="Pragma" content="no-cache">
-	<meta http-equiv="Expires" content="0">
-	<title>Kee Faang Wenn Shinq?</title>
-	<link rel="icon" type="image/png" href="icon.png">
-	<link rel="apple-touch-icon" href="apple-touch-icon.png">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="default">
-	<meta name="apple-mobile-web-app-title" content="KeeFaang">
-	<meta name="mobile-web-app-capable" content="yes">
-	<link rel="manifest" href="manifest.json">
-	<style>
-		/* === RESET & BASE === */
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-			-webkit-font-smoothing: antialiased;
-		}
+			body {
+				font-family: "Times New Roman", "Times", serif;
+				background-color: #f0f0f0;
+				color: #333;
+				line-height: 1;
+				padding: 12px;
+			}
 
-		body {
-			font-family: "Times New Roman", "Times", serif;
-			background-color: #f0f0f0;
-			color: #333;
-			line-height: 1;
-			padding: 12px;
-		}
+			/* === WEB 1.0 CONTAINER === */
+			.container {
+				max-width: 640px;
+				margin: 0 auto;
+				background: #fff;
+				border: 1px solid #000;
+				padding: 8px;
+			}
 
-		/* === WEB 1.0 CONTAINER === */
-		.container {
-			max-width: 640px;
-			margin: 0 auto;
-			background: #fff;
-			border: 1px solid #000;
-			padding: 8px;
-		}
+			a {
+				color: #0000ff;
+				text-decoration: underline;
+			}
 
-		a {
-			color: #0000ff;
-			text-decoration: underline;
-		}
+			a:visited {
+				color: #800080;
+			}
 
-		a:visited {
-			color: #800080;
-		}
+			/* === HEADER === */
+			h1 {
+				text-align: center;
+				border-bottom: 3px double #000;
+				font-size: 25px;
+				padding-bottom: 5px;
+			}
 
-		/* === HEADER === */
-		h1 {
-			text-align: center;
-			border-bottom: 3px double #000;
-			font-size: 25px;
-			padding-bottom: 5px;
-		}
+			.subtitle {
+				color: #000;
+				font-size: 12px;
+			}
 
-		.subtitle {
-			color: #000;
-			font-size: 12px;
-		}
+			/* === CONTROLS === */
 
-		/* === CONTROLS === */
+			button {
+				font-family: inherit;
+				padding: 2px 6px;
+				cursor: pointer;
+				background: #c0c0c0;
+				border: 2px outset #c0c0c0;
+				color: #000;
+				margin-top: 4px;
+				margin-bottom: 4px;
+			}
 
-		button {
-			font-family: inherit;
-			padding: 2px 6px;
-			cursor: pointer;
-			background: #c0c0c0;
-			border: 2px outset #c0c0c0;
-			color: #000;
-			margin-top: 4px;
-			margin-bottom: 4px;
-		}
+			button:active {
+				border-style: inset;
+			}
 
-		button:active {
-			border-style: inset;
-		}
+			button.active {
+				background: #00ff;
+				color: #fff;
+				border-color: #000080;
+			}
 
-		button.active {
-			background: #00ff;
-			color: #fff;
-			border-color: #000080;
-		}
+			/* === TABLE === */
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-bottom: 12px;
+				table-layout: fixed;
+			}
 
-		/* === TABLE === */
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			margin-bottom: 12px;
-			table-layout: fixed;
-		}
+			th,
+			td {
+				border: 1px solid #000;
+				padding: 2px 4px;
+				text-align: left;
+				font-size: 15px;
+				width: 50%;
+			}
 
-		th,
-		td {
-			border: 1px solid #000;
-			padding: 2px 4px;
-			text-align: left;
-			font-size: 15px;
-			width: 50%;
-		}
+			th {
+				background: #000;
+				color: #fff;
+			}
 
-		th {
-			background: #000;
-			color: #fff;
-		}
+			/* Status cells */
+			.site-favicon {
+				width: 16px;
+				height: 16px;
+				vertical-align: middle;
+				margin-right: 6px;
+				image-rendering: linear;
+			}
 
-		/* Status cells */
-		.site-favicon {
-			width: 16px;
-			height: 16px;
-			vertical-align: middle;
-			margin-right: 6px;
-			image-rendering: linear;
-		}
+			.status-ok {
+				color: #008000;
+				font-weight: bold;
+			}
 
-		.status-ok {
-			color: #008000;
-			font-weight: bold;
-		}
+			.status-blocked {
+				color: #800000;
+				font-weight: bold;
+			}
 
-		.status-blocked {
-			color: #800000;
-			font-weight: bold;
-		}
+			.status-checking {
+				color: #c0c0c0;
+				font-style: italic;
+			}
 
-		.status-checking {
-			color: #c0c0c0;
-			font-style: italic;
-		}
+			.site-unreachable a {
+				color: #c0c0c0;
+				font-style: italic;
+			}
 
-		.site-unreachable a {
-			color: #c0c0c0;
-			font-style: italic;
-		}
+			/* === VERDICT === */
+			.verdict {
+				text-align: center;
+				padding: 0px;
+				margin-bottom: 8px;
+				border: 1px solid #000;
+				font-weight: bold;
+			}
 
-		/* === VERDICT === */
-		.verdict {
-			text-align: center;
-			padding: 0px;
-			margin-bottom: 8px;
-			border: 1px solid #000;
-			font-weight: bold;
-		}
+			.verdict-free {
+				background: #00ff00;
+				color: #000;
+			}
 
-		.verdict-free {
-			background: #00ff00;
-			color: #000;
-		}
+			.verdict-partial {
+				background: #ffff80;
+				color: #000;
+			}
 
-		.verdict-partial {
-			background: #ffff80;
-			color: #000;
-		}
+			.verdict-blocked {
+				background: #ff8080;
+				color: #000;
+			}
 
-		.verdict-blocked {
-			background: #ff8080;
-			color: #000;
-		}
+			.verdict-checking {
+				background: #c0c0c0;
+				color: #000;
+			}
 
-		.verdict-checking {
-			background: #c0c0c0;
-			color: #000;
-		}
+			.warning-icon {
+				width: 1em;
+				height: 1em;
+				vertical-align: -0.12em;
+				margin-right: 2px;
+				fill: currentColor;
+				transform: scaleX(0.8);
+			}
 
-		.warning-icon {
-			width: 1em;
-			height: 1em;
-			vertical-align: -0.12em;
-			margin-right: 2px;
-			fill: currentColor;
-			transform: scaleX(0.8);
-		}
+			/* === FOOTER === */
+			footer {
+				font-size: 10px;
+				color: #c0c0c0;
+				border-top: 1px solid #c0c0c0;
+				padding-top: 8px;
+			}
 
-		/* === FOOTER === */
-		footer {
-			font-size: 10px;
-			color: #c0c0c0;
-			border-top: 1px solid #c0c0c0;
-			padding-top: 8px;
-		}
+			/* === VISITOR COUNTER (WEB 1.0 AESTHETIC) === */
+			.counter {
+				font-size: 10px;
+				color: #c0c0c0;
+			}
+		</style>
+	</head>
 
-		/* === VISITOR COUNTER (WEB 1.0 AESTHETIC) === */
-		.counter {
-			font-size: 10px;
-			color: #c0c0c0;
-		}
-	</style>
-</head>
+	<body>
+		<div class="container">
+			<h1>
+				<img
+					src="icon.png"
+					alt=""
+					style="
+						width: 1em;
+						height: 1em;
+						vertical-align: middle;
+						margin-right: 10px;
+						image-rendering: auto;
+					"
+				/>Kee Faang Wenn Shinq?
+			</h1>
+			<a
+				href="#"
+				class="subtitle"
+				onclick="
+					location.reload();
+					return false;
+				"
+			>
+				Click to check your internet access
+			</a>
+			<br />
+			<strong>Timeout:</strong>
+			<button id="btn-3s" class="active" onclick="runCheck(3000)">
+				3 seconds
+			</button>
+			<button id="btn-5s" onclick="runCheck(5000)">5 seconds</button>
 
-<body>
-	<div class="container">
-		<h1><img src="icon.png" alt=""
-				style="width:1em;height:1em;vertical-align:middle;margin-right:10px;image-rendering:auto;">Kee Faang
-			Wenn Shinq?</h1>
-		<a href="#" class="subtitle" onclick="location.reload(); return false;">
-			Click to check your internet access
-		</a>
-		<br>
-		<strong>Timeout:</strong>
-		<button id="btn-3s" class="active" onclick="runCheck(3000)">3 seconds</button>
-		<button id="btn-5s" onclick="runCheck(5000)">5 seconds</button>
+			<div id="verdict" class="verdict verdict-checking">Checking&hellip;</div>
 
-		<div id="verdict" class="verdict verdict-checking">Checking&hellip;</div>
+			<table>
+				<thead>
+					<tr>
+						<th>Site</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody id="results">
+					<!-- filled by JS -->
+				</tbody>
+			</table>
 
-		<table>
-			<thead>
-				<tr>
-					<th>Site</th>
-					<th>Status</th>
-				</tr>
-			</thead>
-			<tbody id="results">
-				<!-- filled by JS -->
-			</tbody>
-		</table>
+			<footer>
+				<p>
+					Information may not be exhaustive. Please test and verify for yourself.
+				</p>
+			</footer>
 
-		<footer>
-			<p>Information may not be exhaustive. Please test and verify for yourself.</p>
-		</footer>
-
-		<div class="counter">
-			You are visitor No. <span id="visitor-num"></span> today ^^
+			<div class="counter">
+				You are visitor No. <span id="visitor-num"></span> today ^^
+			</div>
 		</div>
-	</div>
 
-	<script>
-		// --- Site definitions ---
-		var sites = [
+		<script src="connectivity.js"></script>
+		<script>
+			// --- Site definitions ---
+			var sites = [
+				{
+					name: "Google",
+					url: "https://www.google.com/favicon.ico",
+					href: "https://www.google.com",
+				},
+				{
+					name: "Google HK",
+					url: "https://www.google.com.hk/favicon.ico",
+					href: "https://www.google.com.hk",
+				},
+				{
+					name: "TikTok",
+					url: "https://www.tiktok.com/favicon.ico",
+					href: "https://www.tiktok.com",
+				},
+				{
+					name: "Telegram",
+					url: "https://telegram.org/favicon.ico",
+					href: "https://telegram.org",
+				},
+				{
+					name: "Twitter",
+					url: "https://x.com/favicon.ico",
+					href: "https://x.com",
+				},
+				{
+					name: "ChatGPT",
+					url: "https://chatgpt.com/favicon.ico",
+					href: "https://chatgpt.com",
+				},
+				{
+					name: "YouTube",
+					url: "https://www.youtube.com/favicon.ico",
+					href: "https://www.youtube.com",
+				},
+				{
+					name: "Gmail",
+					url: "https://mail.google.com/favicon.ico",
+					href: "https://mail.google.com",
+				},
+				{
+					name: "Wikipedia",
+					url: "https://en.wikipedia.org/static/favicon/wikipedia.ico",
+					href: "https://www.wikipedia.org",
+				},
+				{
+					name: "GitHub",
+					url: "https://github.com/favicon.ico",
+					href: "https://github.com",
+				},
+				{
+					name: "Pinterest",
+					url: "https://www.pinterest.com/favicon.ico",
+					href: "https://www.pinterest.com",
+				},
 
-			{ name: "Google", url: "https://www.google.com/favicon.ico", href: "https://www.google.com" },
-			{ name: "Google HK", url: "https://www.google.com.hk/favicon.ico", href: "https://www.google.com.hk" },
-			{ name: "TikTok", url: "https://www.tiktok.com/favicon.ico", href: "https://www.tiktok.com" },
-			{ name: "Telegram", url: "https://telegram.org/favicon.ico", href: "https://telegram.org" },
-			{ name: "Twitter", url: "https://x.com/favicon.ico", href: "https://x.com" },
-			{ name: "ChatGPT", url: "https://chatgpt.com/favicon.ico", href: "https://chatgpt.com" },
-			{ name: "YouTube", url: "https://www.youtube.com/favicon.ico", href: "https://www.youtube.com" },
-			{ name: "Gmail", url: "https://mail.google.com/favicon.ico", href: "https://mail.google.com" },
-			{ name: "Wikipedia", url: "https://en.wikipedia.org/static/favicon/wikipedia.ico", href: "https://www.wikipedia.org" },
-			{ name: "GitHub", url: "https://github.com/favicon.ico", href: "https://github.com" },
-			{ name: "Pinterest", url: "https://www.pinterest.com/favicon.ico", href: "https://www.pinterest.com" },
+				{
+					name: "Claude",
+					url: "https://claude.ai/favicon.ico",
+					href: "https://claude.ai",
+				},
+				{
+					name: "Gemini",
+					url: "https://gemini.google.com/favicon.ico",
+					href: "https://gemini.google.com",
+				},
 
+				{
+					name: "Discord",
+					url: "https://discord.com/favicon.ico",
+					href: "https://discord.com",
+				},
+				{
+					name: "Reddit",
+					url: "https://www.reddit.com/favicon.ico",
+					href: "https://www.reddit.com",
+				},
+				{
+					name: "Instagram",
+					url: "https://www.instagram.com/favicon.ico",
+					href: "https://www.instagram.com",
+				},
+				{
+					name: "Facebook",
+					url: "https://www.facebook.com/favicon.ico",
+					href: "https://www.facebook.com",
+				},
+				{
+					name: "DeepL",
+					url: "https://www.deepl.com/favicon.ico",
+					href: "https://www.deepl.com",
+				},
 
-			{ name: "Claude", url: "https://claude.ai/favicon.ico", href: "https://claude.ai" },
-			{ name: "Gemini", url: "https://gemini.google.com/favicon.ico", href: "https://gemini.google.com" },
+				{
+					name: "Quora",
+					url: "https://quora.com/favicon.ico",
+					href: "https://quora.com",
+				},
+				{
+					name: "Homebrew",
+					url: "https://brew.sh/assets/img/favicon.ico",
+					href: "https://brew.sh",
+				},
 
+				{
+					name: "Netflix",
+					url: "https://www.netflix.com/favicon.ico",
+					href: "https://www.netflix.com",
+				},
+			];
 
-			{ name: "Discord", url: "https://discord.com/favicon.ico", href: "https://discord.com" },
-			{ name: "Reddit", url: "https://www.reddit.com/favicon.ico", href: "https://www.reddit.com" },
-			{ name: "Instagram", url: "https://www.instagram.com/favicon.ico", href: "https://www.instagram.com" },
-			{ name: "Facebook", url: "https://www.facebook.com/favicon.ico", href: "https://www.facebook.com" },
-			{ name: "DeepL", url: "https://www.deepl.com/favicon.ico", href: "https://www.deepl.com" },
+			var checks = Connectivity.createBatchManager();
 
-
-			{ name: "Quora", url: "https://quora.com/favicon.ico", href: "https://quora.com" },
-			{ name: "Homebrew", url: "https://brew.sh/assets/img/favicon.ico", href: "https://brew.sh" },
-
-
-			{ name: "Netflix", url: "https://www.netflix.com/favicon.ico", href: "https://www.netflix.com" },
-		];
-
-		// --- URL helpers ---
-		function cacheBustedUrl(url) {
-			var bustParam = "_nc=" + Date.now() + "-" + Math.random().toString(36).slice(2);
-			var separator = url.indexOf("?") === -1 ? "?" : "&";
-			return url + separator + bustParam + "#" + Math.random().toString(36).slice(2);
-		}
-
-		function getProbeUrls(site) {
-			var urls = site.urls ? site.urls.slice() : [];
-			urls.unshift(site.url);
-
-			try {
-				urls.push(new URL("/favicon.ico", site.href).href);
-				urls.push(new URL("/apple-touch-icon.png", site.href).href);
-				urls.push(new URL("/apple-touch-icon-precomposed.png", site.href).href);
-			} catch (e) {
-				/* keep existing URLs only */
-			}
-
-			return urls.filter(function(url, index) {
-				return urls.indexOf(url) === index;
-			});
-		}
-
-		// --- Cache-busting probe ---
-		function probe(faviconUrl, timeout) {
-			return new Promise(function (resolve) {
-				var img = new Image();
-				var done = false;
-
-				var timer = setTimeout(function () {
-					if (!done) {
-						done = true;
-						img.onload = null;
-						img.onerror = null;
-						img.src = "";
-						resolve("blocked");
-					}
-				}, timeout);
-
-				img.onload = function () {
-					if (!done) {
-						done = true;
-						clearTimeout(timer);
-						resolve("ok");
-					}
-				};
-
-				img.onerror = function () {
-					if (!done) {
-						done = true;
-						clearTimeout(timer);
-						resolve("blocked");
-					}
-				};
-
-				img.src = cacheBustedUrl(faviconUrl);
-			});
-		}
-
-		function probeAny(site, timeout) {
-			var urls = getProbeUrls(site);
-			var remaining = urls.length;
-
-			return new Promise(function(resolve) {
-				for (var i = 0; i < urls.length; i++) {
-					probe(urls[i], timeout).then(function(result) {
-						if (result === "ok") {
-							resolve("ok");
-							return;
-						}
-
-						remaining--;
-						if (remaining === 0) {
-							resolve("blocked");
-						}
-					});
+			// --- Render table ---
+			function renderTable() {
+				var tbody = document.getElementById("results");
+				tbody.innerHTML = "";
+				for (var i = 0; i < sites.length; i++) {
+					var tr = document.createElement("tr");
+					tr.id = "site-row-" + i;
+					var tdName = document.createElement("td");
+					var tdStatus = document.createElement("td");
+					var faviconImg = document.createElement("img");
+					faviconImg.alt = "";
+					faviconImg.className = "site-favicon";
+					faviconImg.src = sites[i].url;
+					faviconImg.onerror = function () {
+						this.onerror = null;
+						this.src = "broken.png";
+					};
+					var link = document.createElement("a");
+					link.href = sites[i].href;
+					link.target = "_blank";
+					link.rel = "noopener noreferrer";
+					link.textContent = sites[i].name;
+					tdName.appendChild(faviconImg);
+					tdName.appendChild(link);
+					tdStatus.textContent = "Checking…";
+					tdStatus.className = "status-checking";
+					tdStatus.id = "status-" + i;
+					tr.appendChild(tdName);
+					tr.appendChild(tdStatus);
+					tbody.appendChild(tr);
 				}
-			});
-		}
+			}
 
-		// --- Render table ---
-		function renderTable() {
-			var tbody = document.getElementById("results");
-			tbody.innerHTML = "";
-			for (var i = 0; i < sites.length; i++) {
-				var tr = document.createElement("tr");
-				tr.id = "site-row-" + i;
-				var tdName = document.createElement("td");
-				var tdStatus = document.createElement("td");
-				var faviconImg = document.createElement("img");
-				faviconImg.alt = "";
-				faviconImg.className = "site-favicon";
-				faviconImg.src = "broken.png";
-				(function (el, urls) {
-					var tryIndex = 0;
-					function tryNext() {
-						if (tryIndex >= urls.length) {
-							return;
-						}
+			// --- Run all probes ---
+			function finishCheck(check, baselineReachable, rawResults) {
+				if (!checks.finish(check)) return;
 
-						var bustedUrl = cacheBustedUrl(urls[tryIndex++]);
-						var loader = new Image();
-						loader.onload = function () { el.src = bustedUrl; };
-						loader.onerror = tryNext;
-						loader.src = bustedUrl;
+				var results = Connectivity.classifyResults(rawResults, baselineReachable);
+				var reachableCount = 0;
+				var unknownCount = 0;
+
+				for (var i = 0; i < results.length; i++) {
+					var cell = document.getElementById("status-" + i);
+					var row = document.getElementById("site-row-" + i);
+
+					if (results[i] === "reachable") {
+						cell.textContent = "Accessible";
+						cell.className = "status-ok";
+						row.className = "";
+						reachableCount++;
+					} else if (results[i] === "unreachable") {
+						cell.textContent = "Unreachable";
+						cell.className = "status-blocked";
+						row.className = "site-unreachable";
+					} else {
+						cell.textContent = "Unable to confirm";
+						cell.className = "status-checking";
+						row.className = "";
+						unknownCount++;
 					}
+				}
 
-					tryNext();
-				})(faviconImg, getProbeUrls(sites[i]));
-				var link = document.createElement("a");
-				link.href = sites[i].href;
-				link.target = "_blank";
-				link.rel = "noopener noreferrer";
-				link.textContent = sites[i].name;
-				tdName.appendChild(faviconImg);
-				tdName.appendChild(link);
-				tdStatus.textContent = "Checking…";
-				tdStatus.className = "status-checking";
-				tdStatus.id = "status-" + i;
-				tr.appendChild(tdName);
-				tr.appendChild(tdStatus);
-				tbody.appendChild(tr);
+				updateVerdict(reachableCount, results.length, unknownCount);
 			}
-		}
 
-		// --- Run all probes ---
-		function runCheck(timeout) {
-			// Update button state
-			document.getElementById("btn-3s").className = (timeout === 3000) ? "active" : "";
-			document.getElementById("btn-5s").className = (timeout === 5000) ? "active" : "";
+			function runCheck(timeout) {
+				document.getElementById("btn-3s").className =
+					timeout === 3000 ? "active" : "";
+				document.getElementById("btn-5s").className =
+					timeout === 5000 ? "active" : "";
 
-			// Reset
-			renderTable();
-			var verdictEl = document.getElementById("verdict");
-			verdictEl.textContent = "Checking…";
-			verdictEl.className = "verdict verdict-checking";
+				renderTable();
+				var verdictEl = document.getElementById("verdict");
+				verdictEl.textContent = "Checking…";
+				verdictEl.className = "verdict verdict-checking";
 
-			var okCount = 0;
-			var doneCount = 0;
-			var total = sites.length;
+				var check = checks.start(timeout);
+				var baseline = Connectivity.probeUrl(
+					location.href,
+					check.controller.signal,
+					window.fetch.bind(window),
+				);
+				var probes = sites.map(function (site) {
+					return Connectivity.probeSite(site, check.controller.signal);
+				});
 
-			for (var i = 0; i < total; i++) {
-				(function (index) {
-					probeAny(sites[index], timeout).then(function (result) {
-						var cell = document.getElementById("status-" + index);
-						var row = document.getElementById("site-row-" + index);
-						if (result === "ok") {
-							cell.textContent = "Accessible";
-							cell.className = "status-ok";
-							row.className = "";
-							okCount++;
-						} else {
-							cell.textContent = "Unreachable";
-							cell.className = "status-blocked";
-							row.className = "site-unreachable";
-						}
-
-						doneCount++;
-						if (doneCount === total) {
-							updateVerdict(okCount, total);
-						}
-					});
-				})(i);
+				Promise.all([baseline, Promise.all(probes)]).then(
+					function (values) {
+						finishCheck(check, values[0], values[1]);
+					},
+					function () {
+						finishCheck(check, false, new Array(sites.length).fill("failed"));
+					},
+				);
 			}
-		}
 
-		// --- Verdict ---
-		function updateVerdict(ok, total) {
-			var el = document.getElementById("verdict");
-			if (ok === total) {
-				el.textContent = "You appear to have unrestricted internet access.";
-				el.className = "verdict verdict-free";
-			} else if (ok === 0) {
-				el.textContent = "Your network appears to be heavily restricted.";
-				el.className = "verdict verdict-blocked";
-			} else {
-				el.innerHTML = '<svg class="warning-icon" viewBox="0 0 466.705 466.705" aria-hidden="true"><path d="M459.925,358.907L269.505,61.503c-7.893-12.323-21.518-19.776-36.145-19.776c-14.628,0-28.254,7.453-36.146,19.776L6.78,358.907c-8.462,13.209-9.047,29.987-1.511,43.752c7.522,13.757,21.964,22.319,37.655,22.319h380.854c15.691,0,30.134-8.555,37.656-22.319C468.972,388.894,468.387,372.116,459.925,358.907z M209.453,162.607c0-13.078,10.605-23.675,23.675-23.675c13.072,0,23.676,10.597,23.676,23.675v101.584c0,13.078-10.604,23.675-23.676,23.675c-13.07,0-23.675-10.597-23.675-23.675V162.607z M232.682,373.613c-16.338,0-29.594-13.249-29.594-29.594c0-16.347,13.256-29.594,29.594-29.594c16.339,0,29.595,13.247,29.595,29.594C262.276,360.364,249.021,373.613,232.682,373.613z"></path></svg>Partial access: ' + ok + ' of ' + total + ' sites reachable.';
-				el.className = "verdict verdict-partial";
+			// --- Verdict ---
+			function updateVerdict(ok, total, unknown) {
+				var el = document.getElementById("verdict");
+				if (unknown === total) {
+					el.textContent = "Unable to confirm your internet access.";
+					el.className = "verdict verdict-checking";
+				} else if (ok === total) {
+					el.textContent = "You appear to have unrestricted internet access.";
+					el.className = "verdict verdict-free";
+				} else if (ok === 0) {
+					el.textContent = "Your network appears to be heavily restricted.";
+					el.className = "verdict verdict-blocked";
+				} else {
+					var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+					var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+					svg.setAttribute("class", "warning-icon");
+					svg.setAttribute("viewBox", "0 0 466.705 466.705");
+					svg.setAttribute("aria-hidden", "true");
+					path.setAttribute(
+						"d",
+						"M459.925,358.907L269.505,61.503c-7.893-12.323-21.518-19.776-36.145-19.776c-14.628,0-28.254,7.453-36.146,19.776L6.78,358.907c-8.462,13.209-9.047,29.987-1.511,43.752c7.522,13.757,21.964,22.319,37.655,22.319h380.854c15.691,0,30.134-8.555,37.656-22.319C468.972,388.894,468.387,372.116,459.925,358.907z M209.453,162.607c0-13.078,10.605-23.675,23.675-23.675c13.072,0,23.676,10.597,23.676,23.675v101.584c0,13.078-10.604,23.675-23.676,23.675c-13.07,0-23.675-10.597-23.675-23.675V162.607z M232.682,373.613c-16.338,0-29.594-13.249-29.594-29.594c0-16.347,13.256-29.594,29.594-29.594c16.339,0,29.595,13.247,29.595,29.594C262.276,360.364,249.021,373.613,232.682,373.613z",
+					);
+					svg.appendChild(path);
+					el.textContent = "";
+					el.appendChild(svg);
+					el.appendChild(
+						document.createTextNode(
+							"Partial access: " + ok + " of " + total + " sites reachable.",
+						),
+					);
+					el.className = "verdict verdict-partial";
+				}
 			}
-		}
 
-		// --- Fake visitor counter (web 1.0 charm) ---
-		document.getElementById("visitor-num").textContent = Math.floor(Math.random() * 9000) + 1000;
+			// --- Fake visitor counter (web 1.0 charm) ---
+			document.getElementById("visitor-num").textContent =
+				Math.floor(Math.random() * 9000) + 1000;
 
-		// --- Auto-run with 3s timeout on load ---
-		renderTable();
-		runCheck(3000);
-	</script>
-</body>
-
+			// --- Auto-run with 3s timeout on load ---
+			runCheck(3000);
+		</script>
+	</body>
 </html>

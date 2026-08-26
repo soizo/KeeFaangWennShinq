@@ -8,7 +8,11 @@ Runs entirely in-browser — no server, no data collection.
 
 Runs two browser-native checks per site in parallel: a `no-cors` request to the site's main page and a request for one known static asset. Either success marks the site accessible; failures are compared with the current-page baseline and other site results to distinguish **Unreachable** from **Unable to confirm**.
 
-Choose a 3-second or 5-second deadline depending on your network speed. Browser security rules prevent inspecting cross-origin response content, so results indicate network reachability rather than guaranteeing that every page feature works.
+The automatic check uses a fixed five-second deadline. You can also test a custom domain independently; the page probes both its homepage and `/favicon.ico`, and accepts either a bare domain such as `example.com` or a full HTTP(S) URL.
+
+The interface defaults to English and includes a Simplified Chinese option. English uses the period browser font stack, with the bundled `fonts/simsun.woff2` used as the Chinese fallback when a system SimSun/宋体 font is unavailable.
+
+Browser security rules prevent inspecting cross-origin response content, so results indicate network reachability rather than guaranteeing that every page feature works.
 
 ## Deployment
 

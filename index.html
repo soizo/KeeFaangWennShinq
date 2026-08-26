@@ -18,236 +18,589 @@
 		<meta name="mobile-web-app-capable" content="yes" />
 		<link rel="manifest" href="manifest.json" />
 		<style>
-			/* === RESET & BASE === */
+			@font-face {
+				font-family: "SimSun Web";
+				src:
+					local("SimSun"),
+					local("宋体"),
+					url("fonts/simsun.woff2") format("woff2");
+				font-display: swap;
+			}
+
+			:root {
+				--page: #666699;
+				--silver: #c0c0c0;
+				--light-silver: #e6e6e6;
+				--navy: #000066;
+				--selection: #000080;
+				--blue: #0000aa;
+				--white: #ffffff;
+				--black: #000000;
+				--green: #006600;
+				--red: #990000;
+				--yellow: #ffff99;
+			}
+
 			* {
-				margin: 0;
-				padding: 0;
 				box-sizing: border-box;
-				-webkit-font-smoothing: antialiased;
+				-webkit-font-smoothing: none;
+			}
+
+			::selection {
+				background: var(--selection);
+				color: var(--white);
+			}
+
+			html,
+			body {
+				margin: 0;
+				min-height: 100%;
 			}
 
 			body {
-				font-family: "Times New Roman", "Times", serif;
-				background-color: #f0f0f0;
-				color: #333;
-				line-height: 1;
-				padding: 12px;
+				padding: 14px;
+				background: var(--page);
+				color: var(--black);
+				font-family: Arial, "SimSun Web", SimSun, Verdana, sans-serif;
+				font-size: 13px;
+				line-height: 1.2;
 			}
 
-			/* === WEB 1.0 CONTAINER === */
 			.container {
-				max-width: 640px;
+				width: 100%;
+				max-width: 700px;
 				margin: 0 auto;
-				background: #fff;
-				border: 1px solid #000;
-				padding: 8px;
+				padding: 4px;
+				background: var(--silver);
+				border: 3px outset var(--silver);
+				box-shadow: 0 0 0 1px var(--black);
 			}
 
 			a {
-				color: #0000ff;
+				color: var(--blue);
 				text-decoration: underline;
 			}
 
 			a:visited {
-				color: #800080;
+				color: #660066;
 			}
 
-			/* === HEADER === */
-			h1 {
-				text-align: center;
-				border-bottom: 3px double #000;
+			a:focus-visible,
+			button:focus-visible,
+			input:focus-visible {
+				outline: 2px dotted var(--navy);
+				outline-offset: 2px;
+			}
+
+			.masthead {
+				border: 2px inset var(--silver);
+			}
+
+			.brand-row {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				min-height: 66px;
+				padding: 8px 12px;
+				background: var(--navy);
+				color: var(--white);
+			}
+
+			.brand-icon {
+				width: 38px;
+				height: 38px;
+				image-rendering: auto;
+			}
+
+			.isp-name {
+				font-family: "Arial Black", Arial, "SimSun Web", SimSun, sans-serif;
 				font-size: 25px;
-				padding-bottom: 5px;
+				letter-spacing: -1px;
+			}
+
+			.tagline {
+				margin-top: 2px;
+				font-family: "Courier New", "SimSun Web", SimSun, monospace;
+				font-size: 11px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+
+			.service-strip {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 8px;
+				padding: 3px 7px;
+				background: var(--light-silver);
+				border-top: 1px solid var(--white);
+				font-size: 11px;
+				font-weight: bold;
+				text-align: right;
+			}
+
+			.language-picker {
+				padding: 1px 2px;
+				background: var(--white);
+				border: 1px inset var(--silver);
+				font: inherit;
+				font-weight: normal;
+			}
+
+			.language-picker:focus-visible {
+				outline: 2px dotted var(--navy);
+				outline-offset: 2px;
+			}
+
+			.content {
+				padding-top: 5px;
+			}
+
+			.diagnostic-panel {
+				border: 2px groove var(--silver);
+				background: var(--silver);
+			}
+
+			.panel-title,
+			table caption {
+				padding: 4px 7px;
+				background: var(--navy);
+				color: var(--white);
+				font-size: 12px;
+				font-weight: bold;
+				letter-spacing: 0.06em;
+				text-align: left;
+				text-transform: uppercase;
+			}
+
+			.panel-body {
+				padding: 8px;
+			}
+
+			h1 {
+				margin: 0;
+				font-family: Arial, "SimSun Web", SimSun, Verdana, sans-serif;
+				font-size: 23px;
+				line-height: 1.1;
 			}
 
 			.subtitle {
-				color: #000;
+				margin: 2px 0 7px;
 				font-size: 12px;
 			}
 
-			/* === CONTROLS === */
+			.utility-row {
+				margin-bottom: 6px;
+				font-size: 11px;
+				text-align: right;
+			}
+
+			.controls {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 6px;
+				margin-bottom: 8px;
+				padding: 5px 7px;
+				background: var(--light-silver);
+				border: 2px inset var(--silver);
+			}
+
+			.controls label {
+				font-weight: bold;
+				white-space: nowrap;
+			}
+
+			.controls input {
+				min-width: 0;
+				height: 26px;
+				flex: 1;
+				padding: 2px 5px;
+				background: var(--white);
+				border: 2px inset var(--silver);
+				font: inherit;
+			}
+
+			.custom-domain-result {
+				display: block;
+				width: 100%;
+				min-height: 1.2em;
+				font-family: "Courier New", "SimSun Web", SimSun, monospace;
+				font-size: 11px;
+			}
 
 			button {
-				font-family: inherit;
-				padding: 2px 6px;
+				min-height: 26px;
+				padding: 2px 9px;
 				cursor: pointer;
-				background: #c0c0c0;
-				border: 2px outset #c0c0c0;
-				color: #000;
-				margin-top: 4px;
-				margin-bottom: 4px;
+				background: var(--silver);
+				border: 2px outset var(--silver);
+				color: var(--black);
+				font: inherit;
 			}
 
 			button:active {
 				border-style: inset;
 			}
 
-			button.active {
-				background: #00ff;
-				color: #fff;
-				border-color: #000080;
-			}
-
-			/* === TABLE === */
-			table {
-				width: 100%;
-				border-collapse: collapse;
-				margin-bottom: 12px;
-				table-layout: fixed;
-			}
-
-			th,
-			td {
-				border: 1px solid #000;
-				padding: 2px 4px;
-				text-align: left;
-				font-size: 15px;
-				width: 50%;
-			}
-
-			th {
-				background: #000;
-				color: #fff;
-			}
-
-			/* Status cells */
-			.site-favicon {
-				width: 16px;
-				height: 16px;
-				vertical-align: middle;
-				margin-right: 6px;
-				image-rendering: linear;
-			}
-
-			.status-ok {
-				color: #008000;
-				font-weight: bold;
-			}
-
-			.status-blocked {
-				color: #800000;
-				font-weight: bold;
-			}
-
-			.status-checking {
-				color: #c0c0c0;
-				font-style: italic;
-			}
-
-			.site-unreachable a {
-				color: #c0c0c0;
-				font-style: italic;
-			}
-
-			/* === VERDICT === */
-			.verdict {
-				text-align: center;
-				padding: 0px;
+			.verdict-frame {
 				margin-bottom: 8px;
-				border: 1px solid #000;
+				padding: 4px;
+				background: #202020;
+				border: 3px inset var(--silver);
+			}
+
+			.verdict-label {
+				margin-bottom: 3px;
+				color: #66ff66;
+				font-family: "Courier New", "SimSun Web", SimSun, monospace;
+				font-size: 10px;
+				letter-spacing: 0.12em;
+			}
+
+			.verdict {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 27px;
+				padding: 3px 6px;
+				border: 1px solid var(--black);
+				font-family: "Courier New", "SimSun Web", SimSun, monospace;
 				font-weight: bold;
+				text-align: center;
 			}
 
 			.verdict-free {
-				background: #00ff00;
-				color: #000;
+				background: #66ff66;
 			}
 
 			.verdict-partial {
-				background: #ffff80;
-				color: #000;
+				background: var(--yellow);
 			}
 
 			.verdict-blocked {
-				background: #ff8080;
-				color: #000;
+				background: #ff9999;
 			}
 
 			.verdict-checking {
-				background: #c0c0c0;
-				color: #000;
+				background: var(--silver);
 			}
 
 			.warning-icon {
 				width: 1em;
 				height: 1em;
-				vertical-align: -0.12em;
-				margin-right: 2px;
+				margin-right: 3px;
 				fill: currentColor;
 				transform: scaleX(0.8);
+				vertical-align: -0.12em;
 			}
 
-			/* === FOOTER === */
-			footer {
+			table {
+				width: 100%;
+				margin: 0;
+				border-collapse: collapse;
+				background: var(--white);
+				table-layout: fixed;
+			}
+
+			table caption {
+				caption-side: top;
+				border: 1px solid var(--black);
+				border-bottom: 0;
+			}
+
+			th,
+			td {
+				width: 50%;
+				padding: 2px 5px;
+				border: 1px solid var(--black);
+				font-size: 13px;
+				text-align: left;
+			}
+
+			th {
+				background: var(--light-silver);
+				border-bottom: 2px solid var(--navy);
+				font-size: 11px;
+				text-transform: uppercase;
+			}
+
+			td:nth-child(2) {
+				font-family: "Courier New", "SimSun Web", SimSun, monospace;
+			}
+
+			.site-favicon {
+				width: 16px;
+				height: 16px;
+				margin-right: 6px;
+				image-rendering: auto;
+				vertical-align: middle;
+			}
+
+			td.status-ok::before,
+			td.status-blocked::before,
+			td.status-checking::before {
+				display: inline-block;
+				width: 8px;
+				height: 8px;
+				margin-right: 6px;
+				border: 1px inset var(--silver);
+				content: "";
+			}
+
+			td.status-ok::before {
+				background: #00aa00;
+			}
+
+			td.status-blocked::before {
+				background: #cc0000;
+			}
+
+			td.status-checking::before {
+				background: #777777;
+			}
+
+			.status-ok {
+				color: var(--green);
+				font-weight: bold;
+			}
+
+			.status-blocked {
+				color: var(--red);
+				font-weight: bold;
+			}
+
+			.status-checking {
+				color: #555555;
+				font-style: italic;
+			}
+
+			.site-unreachable a {
+				color: #666666;
+				font-style: italic;
+			}
+
+			.site-footer {
+				margin-top: 5px;
+				padding: 7px 8px 5px;
+				background: var(--light-silver);
+				border: 2px inset var(--silver);
+				color: #333333;
 				font-size: 10px;
-				color: #c0c0c0;
-				border-top: 1px solid #c0c0c0;
-				padding-top: 8px;
 			}
 
-			/* === VISITOR COUNTER (WEB 1.0 AESTHETIC) === */
+			.disclaimer {
+				margin: 0 0 4px;
+			}
+
+			.legal-copy {
+				margin: 0;
+			}
+
 			.counter {
+				margin-top: 3px;
+				font-family: "Courier New", "SimSun Web", SimSun, monospace;
 				font-size: 10px;
-				color: #c0c0c0;
+			}
+
+			@media (max-width: 520px) {
+				body {
+					padding: 5px;
+				}
+
+				.container {
+					padding: 3px;
+				}
+
+				.brand-row {
+					min-height: 58px;
+					padding: 7px;
+				}
+
+				.brand-icon {
+					width: 32px;
+					height: 32px;
+				}
+
+				.isp-name {
+					font-size: 20px;
+				}
+
+				.tagline,
+				.service-strip {
+					font-size: 9px;
+				}
+
+				.service-strip {
+					align-items: flex-start;
+					flex-direction: column;
+				}
+
+				.language-picker {
+					font-size: 11px;
+				}
+
+				.panel-body {
+					padding: 6px;
+				}
+
+				h1 {
+					font-size: 21px;
+				}
+
+				.controls {
+					align-items: stretch;
+					flex-wrap: wrap;
+				}
+
+				.controls label {
+					width: 100%;
+				}
+
+				.controls input {
+					height: 44px;
+					flex-basis: calc(100% - 110px);
+				}
+
+				button {
+					min-width: 104px;
+					min-height: 44px;
+				}
+
+				th,
+				td {
+					padding-right: 3px;
+					padding-left: 3px;
+					font-size: 12px;
+				}
+
+				.site-favicon {
+					margin-right: 4px;
+				}
 			}
 		</style>
 	</head>
 
 	<body>
 		<div class="container">
-			<h1>
-				<img
-					src="icon.png"
-					alt=""
-					style="
-						width: 1em;
-						height: 1em;
-						vertical-align: middle;
-						margin-right: 10px;
-						image-rendering: auto;
-					"
-				/>Kee Faang Wenn Shinq?
-			</h1>
-			<a
-				href="#"
-				class="subtitle"
-				onclick="
-					location.reload();
-					return false;
-				"
-			>
-				Click to check your internet access
-			</a>
-			<br />
-			<strong>Timeout:</strong>
-			<button id="btn-3s" class="active" onclick="runCheck(3000)">
-				3 seconds
-			</button>
-			<button id="btn-5s" onclick="runCheck(5000)">5 seconds</button>
+			<header class="masthead">
+				<div class="brand-row">
+					<img class="brand-icon" src="icon.png" alt="" />
+					<div>
+						<div class="isp-name" data-i18n="brandName">KeeFaang Online Services</div>
+						<div class="tagline" data-i18n="tagline">
+							Connecting people to the world since 1999
+						</div>
+					</div>
+				</div>
+				<div class="service-strip">
+					<span data-i18n="service"
+						>Customer Service Centre / Network Operations</span
+					>
+					<label>
+						<span data-i18n="languageLabel">Language:</span>
+						<select
+							id="language-picker"
+							class="language-picker"
+							aria-label="Language"
+						>
+							<option value="en">English</option>
+							<option value="zh-CN">简体中文</option>
+						</select>
+					</label>
+				</div>
+			</header>
 
-			<div id="verdict" class="verdict verdict-checking">Checking&hellip;</div>
+			<main class="content">
+				<section class="diagnostic-panel" aria-labelledby="diagnostic-title">
+					<div class="panel-title" data-i18n="panelTitle">
+						Internet Support Utilities
+					</div>
+					<div class="panel-body">
+						<h1 id="diagnostic-title">Kee Faang Wenn Shinq?</h1>
+						<p class="subtitle" data-i18n="subtitle">
+							Test access to popular international network services.
+						</p>
+						<div class="utility-row">
+							<a
+								href="#"
+								onclick="
+									location.reload();
+									return false;
+								"
+							>
+								<span data-i18n="restart">Restart diagnostic</span>
+							</a>
+						</div>
 
-			<table>
-				<thead>
-					<tr>
-						<th>Site</th>
-						<th>Status</th>
-					</tr>
-				</thead>
-				<tbody id="results">
-					<!-- filled by JS -->
-				</tbody>
-			</table>
+						<form class="controls" onsubmit="runCustomCheck(event)">
+							<label for="custom-domain" data-i18n="customDomain"
+								>Custom domain:</label
+							>
+							<input
+								id="custom-domain"
+								name="domain"
+								type="text"
+								inputmode="url"
+								autocomplete="off"
+								autocapitalize="none"
+								spellcheck="false"
+								placeholder="example.com"
+							/>
+							<button type="submit" data-i18n="testDomain">Test domain</button>
+							<output
+								id="custom-domain-result"
+								class="custom-domain-result"
+								for="custom-domain"
+								aria-live="polite"
+							>
+								<span data-i18n="customHint">Tests the homepage and favicon.</span>
+							</output>
+						</form>
 
-			<footer>
-				<p>
-					Information may not be exhaustive. Please test and verify for yourself.
+						<div class="verdict-frame">
+							<div class="verdict-label" data-i18n="verdictLabel">
+								CURRENT CONNECTION STATUS
+							</div>
+							<div id="verdict" class="verdict verdict-checking" aria-live="polite">
+								Checking&hellip;
+							</div>
+						</div>
+
+						<table>
+							<caption>
+								<span data-i18n="resultsCaption">Network Reachability Results</span>
+							</caption>
+							<thead>
+								<tr>
+									<th data-i18n="siteHeader">Site</th>
+									<th data-i18n="statusHeader">Status</th>
+								</tr>
+							</thead>
+							<tbody id="results">
+								<!-- filled by JS -->
+							</tbody>
+						</table>
+					</div>
+				</section>
+			</main>
+
+			<footer class="site-footer">
+				<p class="disclaimer">
+					<span data-i18n="disclaimer"
+						>Information may not be exhaustive. Please test and verify for
+						yourself.</span
+					>
 				</p>
+				<p class="legal-copy">
+					© 1999 KeeFaang Online Services. All Rights Reserved.
+				</p>
+				<div class="counter">
+					<span data-i18n="counterPrefix">Connection log visitor No.</span>
+					<span id="visitor-num"></span>
+					<span data-i18n="counterSuffix"> today ^^</span>
+				</div>
 			</footer>
-
-			<div class="counter">
-				You are visitor No. <span id="visitor-num"></span> today ^^
-			</div>
 		</div>
 
 		<script src="connectivity.js"></script>
@@ -365,7 +718,110 @@
 				},
 			];
 
+			var translations = {
+				en: {
+					brandName: "KeeFaang Online Services",
+					tagline: "Connecting people to the world since 1999",
+					service: "Customer Service Centre / Network Operations",
+					languageLabel: "Language:",
+					panelTitle: "Internet Support Utilities",
+					subtitle: "Test access to popular international network services.",
+					restart: "Restart diagnostic",
+					customDomain: "Custom domain:",
+					testDomain: "Test domain",
+					customHint: "Tests the homepage and favicon.",
+					verdictLabel: "CURRENT CONNECTION STATUS",
+					resultsCaption: "Network Reachability Results",
+					siteHeader: "Site",
+					statusHeader: "Status",
+					disclaimer:
+						"Information may not be exhaustive. Please test and verify for yourself.",
+					counterPrefix: "Connection log visitor No.",
+					counterSuffix: " today ^^",
+					checking: "Checking…",
+					accessible: "Accessible",
+					unreachable: "Unreachable",
+					unknown: "Unable to confirm",
+					partial: "Partial access: {ok} of {total} sites reachable.",
+					allFree: "You appear to have unrestricted internet access.",
+					allBlocked: "Your network appears to be heavily restricted.",
+					allUnknown: "Unable to confirm your internet access.",
+					customChecking: "Checking {name} homepage and favicon…",
+					customAccessible: "Accessible: {name} homepage or favicon responded.",
+					customUnknown: "Unable to confirm: {name} did not respond.",
+					errorDomain: "Enter a domain.",
+					errorValid: "Enter a valid domain.",
+					errorProtocol: "Only HTTP and HTTPS domains can be tested.",
+					errorCredentials: "Domain credentials are not supported.",
+				},
+				"zh-CN": {
+					brandName: "KeeFaang 在线服务",
+					tagline: "自 1999 年连接人与世界",
+					service: "客户服务中心 / 网络运营",
+					languageLabel: "语言：",
+					panelTitle: "互联网支持工具",
+					subtitle: "测试访问热门国际网络服务。",
+					restart: "重新开始检测",
+					customDomain: "自定义域名：",
+					testDomain: "测试域名",
+					customHint: "将测试主页和 favicon。",
+					verdictLabel: "当前连接状态",
+					resultsCaption: "网络可达性结果",
+					siteHeader: "网站",
+					statusHeader: "状态",
+					disclaimer: "信息可能并不完整，请自行测试和验证。",
+					counterPrefix: "连接日志访客编号",
+					counterSuffix: " 今日 ^^",
+					checking: "检测中…",
+					accessible: "可访问",
+					unreachable: "无法访问",
+					unknown: "无法确认",
+					partial: "部分可访问：{ok} / {total} 个网站可达。",
+					allFree: "您的网络似乎可以不受限制地访问互联网。",
+					allBlocked: "您的网络似乎受到严重限制。",
+					allUnknown: "无法确认您的互联网访问情况。",
+					customChecking: "正在检测 {name} 的主页和 favicon…",
+					customAccessible: "可访问：{name} 的主页或 favicon 有响应。",
+					customUnknown: "无法确认：{name} 没有响应。",
+					errorDomain: "请输入域名。",
+					errorValid: "请输入有效域名。",
+					errorProtocol: "只能测试 HTTP 和 HTTPS 域名。",
+					errorCredentials: "不支持带凭据的域名。",
+				},
+			};
+			var language = "en";
+
+			function t(key, values) {
+				var text = translations[language][key] || translations.en[key] || key;
+				Object.keys(values || {}).forEach(function (name) {
+					text = text.replace("{" + name + "}", values[name]);
+				});
+				return text;
+			}
+
+			function applyLanguage() {
+				document.documentElement.lang = language === "zh-CN" ? "zh-CN" : "en-GB";
+				document.querySelectorAll("[data-i18n]").forEach(function (element) {
+					element.textContent = t(element.dataset.i18n);
+				});
+				document
+					.getElementById("language-picker")
+					.setAttribute("aria-label", t("languageLabel"));
+				document.getElementById("custom-domain-result").textContent =
+					t("customHint");
+				renderTable();
+			}
+
+			document
+				.getElementById("language-picker")
+				.addEventListener("change", function () {
+					language = this.value;
+					applyLanguage();
+				});
+
+			var CHECK_TIMEOUT = 5000;
 			var checks = Connectivity.createBatchManager();
+			var customChecks = Connectivity.createBatchManager();
 
 			// --- Render table ---
 			function renderTable() {
@@ -391,7 +847,7 @@
 					link.textContent = sites[i].name;
 					tdName.appendChild(faviconImg);
 					tdName.appendChild(link);
-					tdStatus.textContent = "Checking…";
+					tdStatus.textContent = t("checking");
 					tdStatus.className = "status-checking";
 					tdStatus.id = "status-" + i;
 					tr.appendChild(tdName);
@@ -413,16 +869,16 @@
 					var row = document.getElementById("site-row-" + i);
 
 					if (results[i] === "reachable") {
-						cell.textContent = "Accessible";
+						cell.textContent = t("accessible");
 						cell.className = "status-ok";
 						row.className = "";
 						reachableCount++;
 					} else if (results[i] === "unreachable") {
-						cell.textContent = "Unreachable";
+						cell.textContent = t("unreachable");
 						cell.className = "status-blocked";
 						row.className = "site-unreachable";
 					} else {
-						cell.textContent = "Unable to confirm";
+						cell.textContent = t("unknown");
 						cell.className = "status-checking";
 						row.className = "";
 						unknownCount++;
@@ -432,18 +888,13 @@
 				updateVerdict(reachableCount, results.length, unknownCount);
 			}
 
-			function runCheck(timeout) {
-				document.getElementById("btn-3s").className =
-					timeout === 3000 ? "active" : "";
-				document.getElementById("btn-5s").className =
-					timeout === 5000 ? "active" : "";
-
+			function runCheck() {
 				renderTable();
 				var verdictEl = document.getElementById("verdict");
-				verdictEl.textContent = "Checking…";
+				verdictEl.textContent = t("checking");
 				verdictEl.className = "verdict verdict-checking";
 
-				var check = checks.start(timeout);
+				var check = checks.start(CHECK_TIMEOUT);
 				var baseline = Connectivity.probeUrl(
 					location.href,
 					check.controller.signal,
@@ -463,17 +914,80 @@
 				);
 			}
 
+			function translateError(message) {
+				var errors = {
+					"Enter a domain.": "errorDomain",
+					"Enter a valid domain.": "errorValid",
+					"Only HTTP and HTTPS domains can be tested.": "errorProtocol",
+					"Domain credentials are not supported.": "errorCredentials",
+				};
+				return t(errors[message] || "errorValid");
+			}
+
+			function setCustomResult(message, className) {
+				var result = document.getElementById("custom-domain-result");
+				result.textContent = message;
+				result.className = "custom-domain-result " + className;
+			}
+
+			function runCustomCheck(event) {
+				event.preventDefault();
+				var input = document.getElementById("custom-domain");
+				var site;
+
+				try {
+					site = Connectivity.siteFromInput(input.value);
+				} catch (error) {
+					var activeCheck = customChecks.getActive();
+					if (activeCheck) {
+						activeCheck.controller.abort();
+						customChecks.finish(activeCheck);
+					}
+					input.setAttribute("aria-invalid", "true");
+					setCustomResult(translateError(error.message), "status-blocked");
+					return;
+				}
+
+				input.removeAttribute("aria-invalid");
+				setCustomResult(
+					t("customChecking", { name: site.name }),
+					"status-checking",
+				);
+
+				var check = customChecks.start(CHECK_TIMEOUT);
+				Connectivity.probeSite(site, check.controller.signal).then(
+					function (result) {
+						if (!customChecks.finish(check)) return;
+						if (result === "reachable") {
+							setCustomResult(t("customAccessible", { name: site.name }), "status-ok");
+						} else {
+							setCustomResult(
+								t("customUnknown", { name: site.name }),
+								"status-checking",
+							);
+						}
+					},
+					function () {
+						if (!customChecks.finish(check)) return;
+						setCustomResult(
+							t("customUnknown", { name: site.name }),
+							"status-checking",
+						);
+					},
+				);
+			}
+
 			// --- Verdict ---
 			function updateVerdict(ok, total, unknown) {
 				var el = document.getElementById("verdict");
 				if (unknown === total) {
-					el.textContent = "Unable to confirm your internet access.";
+					el.textContent = t("allUnknown");
 					el.className = "verdict verdict-checking";
 				} else if (ok === total) {
-					el.textContent = "You appear to have unrestricted internet access.";
+					el.textContent = t("allFree");
 					el.className = "verdict verdict-free";
 				} else if (ok === 0) {
-					el.textContent = "Your network appears to be heavily restricted.";
+					el.textContent = t("allBlocked");
 					el.className = "verdict verdict-blocked";
 				} else {
 					var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -489,9 +1003,7 @@
 					el.textContent = "";
 					el.appendChild(svg);
 					el.appendChild(
-						document.createTextNode(
-							"Partial access: " + ok + " of " + total + " sites reachable.",
-						),
+						document.createTextNode(t("partial", { ok: ok, total: total })),
 					);
 					el.className = "verdict verdict-partial";
 				}
@@ -501,8 +1013,8 @@
 			document.getElementById("visitor-num").textContent =
 				Math.floor(Math.random() * 9000) + 1000;
 
-			// --- Auto-run with 3s timeout on load ---
-			runCheck(3000);
+			// --- Auto-run on load ---
+			runCheck();
 		</script>
 	</body>
 </html>

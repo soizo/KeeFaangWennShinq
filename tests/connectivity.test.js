@@ -41,6 +41,42 @@ function abortableFetch() {
 		});
 }
 
+test("a bare domain becomes an HTTPS homepage and favicon probe", () => {
+	assert.deepEqual(Connectivity.siteFromInput(" example.com "), {
+		name: "example.com",
+		href: "https://example.com/",
+		url: "https://example.com/favicon.ico",
+	});
+});
+
+test("a bare domain may include a port", () => {
+	assert.deepEqual(Connectivity.siteFromInput("localhost:8080"), {
+		name: "localhost",
+		href: "https://localhost:8080/",
+		url: "https://localhost:8080/favicon.ico",
+	});
+});
+
+test("a full HTTP URL is reduced to its origin for domain testing", () => {
+	assert.deepEqual(
+		Connectivity.siteFromInput("http://localhost:8080/path?q=1"),
+		{
+			name: "localhost",
+			href: "http://localhost:8080/",
+			url: "http://localhost:8080/favicon.ico",
+		},
+	);
+});
+
+test("custom domain input rejects empty, credentialed, and non-web URLs", () => {
+	assert.throws(() => Connectivity.siteFromInput(""), /domain/i);
+	assert.throws(() => Connectivity.siteFromInput("ftp://example.com"), /HTTP/i);
+	assert.throws(
+		() => Connectivity.siteFromInput("https://user@example.com"),
+		/credentials/i,
+	);
+});
+
 test("baseline probe reports whether the current page responds", async () => {
 	assert.equal(
 		await Connectivity.probeUrl(

@@ -11,6 +11,32 @@
 		);
 	}
 
+	function siteFromInput(input) {
+		var value = typeof input === "string" ? input.trim() : "";
+		if (!value) throw new TypeError("Enter a domain.");
+
+		var candidate = value.indexOf("://") === -1 ? "https://" + value : value;
+		var target;
+		try {
+			target = new URL(candidate);
+		} catch {
+			throw new TypeError("Enter a valid domain.");
+		}
+
+		if (target.protocol !== "http:" && target.protocol !== "https:") {
+			throw new TypeError("Only HTTP and HTTPS domains can be tested.");
+		}
+		if (target.username || target.password) {
+			throw new TypeError("Domain credentials are not supported.");
+		}
+
+		return {
+			name: target.hostname,
+			href: target.origin + "/",
+			url: target.origin + "/favicon.ico",
+		};
+	}
+
 	function probeUrl(url, signal, fetchFn) {
 		return fetchFn(cacheBustedUrl(url), {
 			mode: "no-cors",
@@ -124,6 +150,7 @@
 	}
 
 	var api = {
+		siteFromInput: siteFromInput,
 		probeUrl: probeUrl,
 		probeSite: probeSite,
 		createBatchManager: createBatchManager,

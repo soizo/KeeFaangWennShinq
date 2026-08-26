@@ -27,6 +27,86 @@
 				font-display: swap;
 			}
 
+			@font-face {
+				font-family: "Arial Black Vietnamese";
+				src: url("fonts/arial-black-vietnamese.woff2") format("woff2");
+				font-display: swap;
+				unicode-range:
+					U+0020-007E, U+00A0-00FF, U+0102-0103, U+0110-0111, U+0128-0129,
+					U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0303, U+0306, U+0309, U+031B,
+					U+0323, U+1EA0-1EF9;
+			}
+
+			@font-face {
+				font-family: "Baekmuk Headline Web";
+				src:
+					local("Baekmuk Headline"),
+					local("백묵 헤드라인"),
+					url("fonts/baekmuk-headline-ko.woff2") format("woff2");
+				font-display: swap;
+				unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+			}
+
+			@font-face {
+				font-family: "Baekmuk Gulim Web";
+				src:
+					local("Baekmuk Gulim"),
+					local("백묵 굴림"),
+					url("fonts/baekmuk-gulim-ko.woff2") format("woff2");
+				font-display: swap;
+				unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+			}
+
+			@font-face {
+				font-family: "Baekmuk Dotum Web";
+				src:
+					local("Baekmuk Dotum"),
+					local("백묵 돋움"),
+					url("fonts/baekmuk-dotum-ko.woff2") format("woff2");
+				font-display: swap;
+				unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+			}
+
+			@font-face {
+				font-family: "Baekmuk Batang Web";
+				src:
+					local("Baekmuk Batang"),
+					local("백묵 바탕"),
+					url("fonts/baekmuk-batang-ko.woff2") format("woff2");
+				font-display: swap;
+				unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+			}
+
+			@font-face {
+				font-family: "KP KwangMyeong Bold Web";
+				src:
+					local("KP KwangMyeong B"),
+					local("광명 굵은"),
+					url("fonts/kp-kwangmyeong-bold-ko.woff2") format("woff2");
+				font-display: swap;
+				unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+			}
+
+			@font-face {
+				font-family: "KP CheonRiMa Web";
+				src:
+					local("KP CheonRiMa M"),
+					local("천리마 중간"),
+					url("fonts/kp-cheonrima-ko.woff2") format("woff2");
+				font-display: swap;
+				unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+			}
+
+			@font-face {
+				font-family: "KP CheongPong Web";
+				src:
+					local("KP CheongPong"),
+					local("청봉"),
+					url("fonts/kp-cheongpong-ko.woff2") format("woff2");
+				font-display: swap;
+				unicode-range: U+1100-11FF, U+3130-318F, U+AC00-D7A3;
+			}
+
 			:root {
 				--page: #666699;
 				--silver: #c0c0c0;
@@ -113,7 +193,9 @@
 			}
 
 			.isp-name {
-				font-family: "Arial Black", Arial, "SimSun Web", SimSun, sans-serif;
+				font-family:
+					"Arial Black Vietnamese", "Arial Black", Arial, "SimSun Web", SimSun,
+					sans-serif;
 				font-size: 25px;
 				letter-spacing: -1px;
 			}
@@ -403,6 +485,43 @@
 				font-size: 10px;
 			}
 
+			html[lang="ko-KR"] {
+				--hangul-display: "Baekmuk Headline Web";
+				--hangul-ui: "Baekmuk Gulim Web";
+				--hangul-data: "Baekmuk Dotum Web";
+				--hangul-serif: "Baekmuk Batang Web";
+			}
+
+			html[lang="ko-KP"] {
+				--hangul-display: "KP KwangMyeong Bold Web";
+				--hangul-ui: "KP CheonRiMa Web";
+				--hangul-data: "KP CheonRiMa Web";
+				--hangul-serif: "KP CheongPong Web";
+			}
+
+			html[lang^="ko-"] body {
+				font-family: var(--hangul-ui), Arial, sans-serif;
+			}
+
+			html[lang^="ko-"] .isp-name,
+			html[lang^="ko-"] .panel-title,
+			html[lang^="ko-"] table caption {
+				font-family: var(--hangul-display), "Arial Black", Arial, sans-serif;
+			}
+
+			html[lang^="ko-"] .tagline,
+			html[lang^="ko-"] .custom-domain-result,
+			html[lang^="ko-"] .verdict-label,
+			html[lang^="ko-"] .verdict,
+			html[lang^="ko-"] td:nth-child(2),
+			html[lang^="ko-"] .counter {
+				font-family: var(--hangul-data), "Courier New", monospace;
+			}
+
+			html[lang^="ko-"] .site-footer {
+				font-family: var(--hangul-serif), Arial, sans-serif;
+			}
+
 			@media (max-width: 520px) {
 				body {
 					padding: 5px;
@@ -506,6 +625,11 @@
 						>
 							<option value="en">English</option>
 							<option value="zh-CN">简体中文</option>
+							<option value="zh-Hant-CN">繁體中文</option>
+							<option value="ja">日本語</option>
+							<option value="ko-KP">조선어</option>
+							<option value="ko-KR">한국어</option>
+							<option value="vi">Tiếng Việt</option>
 						</select>
 					</label>
 				</div>
@@ -788,8 +912,198 @@
 					errorProtocol: "只能测试 HTTP 和 HTTPS 域名。",
 					errorCredentials: "不支持带凭据的域名。",
 				},
+				"zh-Hant-CN": {
+					brandName: "KeeFaang 在綫服務",
+					tagline: "自 1999 年連接人與世界",
+					service: "客户服務中心 / 網絡運營",
+					languageLabel: "語言：",
+					panelTitle: "互聯網支持工具",
+					subtitle: "測試訪問熱門國際網絡服務。",
+					restart: "重新開始檢測",
+					customDomain: "自定義域名：",
+					testDomain: "測試域名",
+					customHint: "將測試主頁和 favicon。",
+					verdictLabel: "當前連接狀態",
+					resultsCaption: "網絡可達性結果",
+					siteHeader: "網站",
+					statusHeader: "狀態",
+					disclaimer: "信息可能并不完整，請自行測試和驗證。",
+					counterPrefix: "連接日志訪客編號",
+					counterSuffix: " 今日 ^^",
+					checking: "檢測中…",
+					accessible: "可訪問",
+					unreachable: "無法訪問",
+					unknown: "無法確認",
+					partial: "部分可訪問：{ok} / {total} 個網站可達。",
+					allFree: "您的網絡似乎可以不受限制地訪問互聯網。",
+					allBlocked: "您的網絡似乎受到嚴重限制。",
+					allUnknown: "無法確認您的互聯網訪問情况。",
+					customChecking: "正在檢測 {name} 的主頁和 favicon…",
+					customAccessible: "可訪問：{name} 的主頁或 favicon 有響應。",
+					customUnknown: "無法確認：{name} 没有響應。",
+					errorDomain: "請輸入域名。",
+					errorValid: "請輸入有效域名。",
+					errorProtocol: "衹能測試 HTTP 和 HTTPS 域名。",
+					errorCredentials: "不支持帶憑據的域名。",
+				},
+				ja: {
+					brandName: "KeeFaang オンラインサービス",
+					tagline: "1999年から人々を世界へつなぐ",
+					service: "カスタマーサービスセンター / ネットワーク運用",
+					languageLabel: "言語：",
+					panelTitle: "インターネットサポートツール",
+					subtitle: "人気の国際ネットワークサービスへのアクセスをテストします。",
+					restart: "診断を再起動",
+					customDomain: "カスタムドメイン：",
+					testDomain: "ドメインをテスト",
+					customHint: "ホームページと favicon をテストします。",
+					verdictLabel: "現在の接続状態",
+					resultsCaption: "ネットワーク到達性の結果",
+					siteHeader: "サイト",
+					statusHeader: "ステータス",
+					disclaimer:
+						"情報は完全でない場合があります。ご自身でテストして確認してください。",
+					counterPrefix: "接続ログ訪問者番号",
+					counterSuffix: " 今日 ^^",
+					checking: "確認中…",
+					accessible: "アクセス可能",
+					unreachable: "到達不能",
+					unknown: "確認できません",
+					partial: "部分的なアクセス：{total}サイト中{ok}サイトに到達可能。",
+					allFree: "インターネットへのアクセスに制限はないようです。",
+					allBlocked: "ネットワークは大幅に制限されているようです。",
+					allUnknown: "インターネットアクセスを確認できません。",
+					customChecking: "{name} のホームページと favicon を確認中…",
+					customAccessible:
+						"アクセス可能：{name} のホームページまたは favicon が応答しました。",
+					customUnknown: "確認できません：{name} から応答がありません。",
+					errorDomain: "ドメインを入力してください。",
+					errorValid: "有効なドメインを入力してください。",
+					errorProtocol: "HTTP と HTTPS のドメインのみテストできます。",
+					errorCredentials: "ドメインの認証情報には対応していません。",
+				},
+				"ko-KP": {
+					brandName: "KeeFaang 인터네트 봉사",
+					tagline: "1999년부터 사람들을 세계와 련결합니다",
+					service: "고객봉사쎈터 / 망 운영",
+					languageLabel: "언어:",
+					panelTitle: "인터네트 지원도구",
+					subtitle: "인기있는 국제 망 봉사들에 대한 접속을 시험합니다.",
+					restart: "진단 다시 시작",
+					customDomain: "사용자 지정 도메인:",
+					testDomain: "도메인 시험",
+					customHint: "홈페지와 favicon을 시험합니다.",
+					verdictLabel: "현재 접속상태",
+					resultsCaption: "망 접속성 결과",
+					siteHeader: "싸이트",
+					statusHeader: "상태",
+					disclaimer:
+						"정보가 완전하지 않을 수 있습니다. 직접 시험하고 확인하십시오.",
+					counterPrefix: "접속기록 방문자번호",
+					counterSuffix: " 오늘 ^^",
+					checking: "시험중…",
+					accessible: "접속 가능",
+					unreachable: "접속 불가능",
+					unknown: "확인할 수 없음",
+					partial: "부분 접속: {total}개 싸이트중 {ok}개 접속 가능.",
+					allFree: "인터네트에 제한없이 접속할 수 있는것으로 보입니다.",
+					allBlocked: "망이 심하게 제한된것으로 보입니다.",
+					allUnknown: "인터네트 접속을 확인할 수 없습니다.",
+					customChecking: "{name} 홈페지와 favicon을 시험중…",
+					customAccessible: "접속 가능: {name} 홈페지 또는 favicon이 응답했습니다.",
+					customUnknown: "확인할 수 없음: {name}이(가) 응답하지 않았습니다.",
+					errorDomain: "도메인을 입력하십시오.",
+					errorValid: "정확한 도메인을 입력하십시오.",
+					errorProtocol: "HTTP 및 HTTPS 도메인만 시험할 수 있습니다.",
+					errorCredentials: "도메인 인증정보는 지원하지 않습니다.",
+				},
+				"ko-KR": {
+					brandName: "KeeFaang 온라인 서비스",
+					tagline: "1999년부터 사람과 세계를 연결합니다",
+					service: "고객 서비스 센터 / 네트워크 운영",
+					languageLabel: "언어:",
+					panelTitle: "인터넷 지원 도구",
+					subtitle: "인기 국제 네트워크 서비스 접속을 테스트합니다.",
+					restart: "진단 다시 시작",
+					customDomain: "사용자 지정 도메인:",
+					testDomain: "도메인 테스트",
+					customHint: "홈페이지와 favicon을 테스트합니다.",
+					verdictLabel: "현재 연결 상태",
+					resultsCaption: "네트워크 연결 가능성 결과",
+					siteHeader: "사이트",
+					statusHeader: "상태",
+					disclaimer:
+						"정보가 완전하지 않을 수 있습니다. 직접 테스트하고 확인하세요.",
+					counterPrefix: "연결 로그 방문자 번호",
+					counterSuffix: " 오늘 ^^",
+					checking: "확인 중…",
+					accessible: "접근 가능",
+					unreachable: "접근 불가",
+					unknown: "확인할 수 없음",
+					partial:
+						"부분 접근: {total}개 사이트 중 {ok}개 사이트에 연결할 수 있습니다.",
+					allFree: "인터넷에 제한 없이 접근할 수 있는 것으로 보입니다.",
+					allBlocked: "네트워크가 심하게 제한된 것으로 보입니다.",
+					allUnknown: "인터넷 접근을 확인할 수 없습니다.",
+					customChecking: "{name} 홈페이지와 favicon을 확인하는 중…",
+					customAccessible:
+						"접근 가능: {name} 홈페이지 또는 favicon이 응답했습니다.",
+					customUnknown: "확인할 수 없음: {name}이(가) 응답하지 않았습니다.",
+					errorDomain: "도메인을 입력하세요.",
+					errorValid: "유효한 도메인을 입력하세요.",
+					errorProtocol: "HTTP 및 HTTPS 도메인만 테스트할 수 있습니다.",
+					errorCredentials: "도메인 인증 정보는 지원하지 않습니다.",
+				},
+				vi: {
+					brandName: "Dịch vụ trực tuyến KeeFaang",
+					tagline: "Kết nối con người với thế giới từ năm 1999",
+					service: "Trung tâm Chăm sóc Khách hàng / Vận hành Mạng",
+					languageLabel: "Ngôn ngữ:",
+					panelTitle: "Công cụ Hỗ trợ Internet",
+					subtitle: "Kiểm tra quyền truy cập các dịch vụ mạng quốc tế phổ biến.",
+					restart: "Khởi động lại kiểm tra",
+					customDomain: "Tên miền tùy chỉnh:",
+					testDomain: "Kiểm tra tên miền",
+					customHint: "Kiểm tra trang chủ và favicon.",
+					verdictLabel: "TRẠNG THÁI KẾT NỐI HIỆN TẠI",
+					resultsCaption: "Kết quả Khả năng Truy cập Mạng",
+					siteHeader: "Trang",
+					statusHeader: "Trạng thái",
+					disclaimer:
+						"Thông tin có thể chưa đầy đủ. Vui lòng tự kiểm tra và xác minh.",
+					counterPrefix: "Số khách trong nhật ký kết nối",
+					counterSuffix: " hôm nay ^^",
+					checking: "Đang kiểm tra…",
+					accessible: "Có thể truy cập",
+					unreachable: "Không thể truy cập",
+					unknown: "Không thể xác nhận",
+					partial: "Truy cập một phần: {ok}/{total} trang có thể truy cập.",
+					allFree: "Có vẻ bạn có quyền truy cập Internet không bị hạn chế.",
+					allBlocked: "Mạng của bạn có vẻ bị hạn chế nghiêm trọng.",
+					allUnknown: "Không thể xác nhận quyền truy cập Internet của bạn.",
+					customChecking: "Đang kiểm tra trang chủ và favicon của {name}…",
+					customAccessible:
+						"Có thể truy cập: trang chủ hoặc favicon của {name} đã phản hồi.",
+					customUnknown: "Không thể xác nhận: {name} không phản hồi.",
+					errorDomain: "Hãy nhập tên miền.",
+					errorValid: "Hãy nhập tên miền hợp lệ.",
+					errorProtocol: "Chỉ có thể kiểm tra tên miền HTTP và HTTPS.",
+					errorCredentials: "Không hỗ trợ thông tin xác thực tên miền.",
+				},
 			};
-			var language = "en";
+			var LANGUAGE_STORAGE_KEY = "keefaang-language";
+
+			function loadLanguage() {
+				try {
+					var saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+					return translations[saved] ? saved : "en";
+				} catch {
+					return "en";
+				}
+			}
+
+			var language = loadLanguage();
+			var currentVerdict = null;
 
 			function t(key, values) {
 				var text = translations[language][key] || translations.en[key] || key;
@@ -800,7 +1114,8 @@
 			}
 
 			function applyLanguage() {
-				document.documentElement.lang = language === "zh-CN" ? "zh-CN" : "en-GB";
+				document.documentElement.lang = language;
+				document.getElementById("language-picker").value = language;
 				document.querySelectorAll("[data-i18n]").forEach(function (element) {
 					element.textContent = t(element.dataset.i18n);
 				});
@@ -810,12 +1125,26 @@
 				document.getElementById("custom-domain-result").textContent =
 					t("customHint");
 				renderTable();
+				if (currentVerdict) {
+					updateVerdict(
+						currentVerdict.ok,
+						currentVerdict.total,
+						currentVerdict.unknown,
+					);
+				} else {
+					var verdict = document.getElementById("verdict");
+					verdict.textContent = t("checking");
+					verdict.className = "verdict verdict-checking";
+				}
 			}
 
 			document
 				.getElementById("language-picker")
 				.addEventListener("change", function () {
-					language = this.value;
+					language = translations[this.value] ? this.value : "en";
+					try {
+						localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
+					} catch {}
 					applyLanguage();
 				});
 
@@ -979,6 +1308,7 @@
 
 			// --- Verdict ---
 			function updateVerdict(ok, total, unknown) {
+				currentVerdict = { ok: ok, total: total, unknown: unknown };
 				var el = document.getElementById("verdict");
 				if (unknown === total) {
 					el.textContent = t("allUnknown");
@@ -1013,7 +1343,8 @@
 			document.getElementById("visitor-num").textContent =
 				Math.floor(Math.random() * 9000) + 1000;
 
-			// --- Auto-run on load ---
+			// --- Apply saved language, then auto-run on load ---
+			applyLanguage();
 			runCheck();
 		</script>
 	</body>

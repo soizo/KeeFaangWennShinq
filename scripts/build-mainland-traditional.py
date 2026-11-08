@@ -17,8 +17,8 @@ DEFAULT_REPO = (
     Path.home()
     / "Local/Cloned/OpenCC-Traditional-Chinese-characters-according-to-Chinese-government-standards"
 )
-EXPECTED_REPO_COMMIT = "58fdb693db755cf060d4794514a9bc84b8e6ceeb"
-EXPECTED_OPENCC_VERSION = "Version: 1.4.0"
+EXPECTED_REPO_COMMIT = "5ae726ea846840283172c6aaa38a1b255b1d601d"
+EXPECTED_OPENCC_VERSION = "Version: 1.4.2"
 STRING_LITERAL = re.compile(r'"(?:\\.|[^"\\])*"')
 LOCALES = re.compile(
     r'^(?P<indent>[ \t]*)"zh-CN": \{\n'
